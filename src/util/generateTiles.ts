@@ -1,12 +1,10 @@
 import { createSVGWindow } from 'svgdom';
 import { Container, registerWindow, SVG } from '@svgdotjs/svg.js';
 import randomColor from 'randomcolor';
-
-const getRandomElement = (array: any[]) => {
-  return array[Math.floor(Math.random() * array.length)];
-};
+import objectHash from 'object-hash';
 
 export interface GenerateTilesOptions {
+  id?: string;
   d?: number;
   dimension?: number;
   width?: number | string;
@@ -47,15 +45,47 @@ export interface GenerateTilesOptions {
   bc?: string;
 }
 
-export const generateTiles = (options: GenerateTilesOptions = {}) => {
-  const window = createSVGWindow();
+const getRandomElement = (array: any[]) => {
+  return array[Math.floor(Math.random() * array.length)];
+};
 
-  const document = window.document;
+const cache = new Map<string, string>();
 
-  registerWindow(window, document);
+const uuidRegex =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
-  const canvas = SVG(document.documentElement) as Container;
+const uuidRegexString = `^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$`;
 
+const isValidUUIDV4 = (uuid: string): boolean => {
+  return uuidRegex.test(uuid);
+};
+
+export const toDataUrl = (svg: string): string => {
+  const encoded = encodeURIComponent(svg)
+    .replace(/'/g, `%27`)
+    .replace(/"/g, `%22`);
+
+  const header = `data:image/svg+xml,`;
+  const dataUrl = header + encoded;
+
+  return dataUrl;
+};
+
+export const byteLength = (str: string): number => {
+  // returns the byte length of an utf8 string
+  let s = str.length;
+  for (let i = str.length - 1; i >= 0; i--) {
+    const code = str.charCodeAt(i);
+    if (code > 0x7f && code <= 0x7ff) s++;
+    else if (code > 0x7ff && code <= 0xffff) s += 2;
+    if (code >= 0xdc00 && code <= 0xdfff) i--; //trail surrogate
+  }
+  return s;
+};
+
+export const generateTiles = (
+  options: GenerateTilesOptions = {},
+): [string, Container | null] => {
   const width =
     options.width || options.w || options.dimension || options.d || 20;
   const height =
@@ -74,6 +104,28 @@ export const generateTiles = (options: GenerateTilesOptions = {}) => {
   const alpha = options.alpha || options.a;
   const bw = options.borderWidth || options.bw || 2;
   const bc = options.borderColor || options.bc || `#000`;
+
+  const id = options.id && isValidUUIDV4(options.id) ? options.id : null;
+
+  if (id) {
+    const hash = objectHash({
+      id,
+      ...options,
+    });
+
+    const data = cache.get(hash);
+    if (data) {
+      return [data, null];
+    }
+  }
+
+  const window = createSVGWindow();
+
+  const document = window.document;
+
+  registerWindow(window, document);
+
+  const canvas = SVG(document.documentElement) as Container;
 
   const colors = randomColor({
     count,
@@ -96,28 +148,15 @@ export const generateTiles = (options: GenerateTilesOptions = {}) => {
     }
   }
 
-  return canvas;
-};
+  const svg = canvas.svg();
 
-export const toDataUrl = (canvas: Container) => {
-  const encoded = encodeURIComponent(canvas.svg())
-    .replace(/'/g, `%27`)
-    .replace(/"/g, `%22`);
-
-  const header = `data:image/svg+xml,`;
-  const dataUrl = header + encoded;
-
-  return dataUrl;
-};
-
-export const byteLength = (str: string) => {
-  // returns the byte length of an utf8 string
-  let s = str.length;
-  for (let i = str.length - 1; i >= 0; i--) {
-    const code = str.charCodeAt(i);
-    if (code > 0x7f && code <= 0x7ff) s++;
-    else if (code > 0x7ff && code <= 0xffff) s += 2;
-    if (code >= 0xdc00 && code <= 0xdfff) i--; //trail surrogate
+  if (id) {
+    const hash = objectHash({
+      id,
+      ...options,
+    });
+    cache.set(hash, svg);
   }
-  return s;
+
+  return [svg, canvas];
 };

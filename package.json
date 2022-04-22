@@ -1,11 +1,20 @@
 {
   "name": "reptiles",
-  "description": "",
+  "description": "Generate svg images with beautiful and colorful tiles. Useful for creating attractive and pseudorandom placeholders.",
   "version": "0.0.1",
   "private": true,
   "author": "Tim Mikeladze <tim.mikeladze@gmail.com>",
-  "license": "",
-  "keywords": [],
+  "license": "MIT",
+  "keywords": [
+    "svg",
+    "placeholder",
+    "image placeholder",
+    "tiles",
+    "svg tiles",
+    "color grid",
+    "reptiles",
+    "tiled"
+  ],
   "scripts": {
     "dev": "next",
     "build": "next build",
@@ -16,9 +25,6 @@
     "postinstall": "husky install",
     "commit": "cz"
   },
-  "files": [
-    "dist"
-  ],
   "lint-staged": {
     "./src/**/*.{ts,js,jsx,tsx}": [
       "yarn lint --fix",
@@ -39,6 +45,7 @@
     "micro": "9.3.4",
     "next": "12.1.5",
     "next-themes": "0.1.1",
+    "object-hash": "3.0.0",
     "randomcolor": "0.6.2",
     "react": "18.0.0",
     "react-dom": "18.0.0",

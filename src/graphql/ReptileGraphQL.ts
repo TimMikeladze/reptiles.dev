@@ -17,10 +17,10 @@ const ReptileGraphQL = createModule({
   resolvers: {
     Query: {
       svg(root: any, args: any, context: any) {
-        const canvas = generateTiles(args.options);
+        const [svg] = generateTiles(args.options);
         return {
           url: getAppUrl(loader(args.options)()),
-          data: toDataUrl(canvas),
+          data: toDataUrl(svg),
         };
       },
     },

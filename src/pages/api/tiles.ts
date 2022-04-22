@@ -9,5 +9,5 @@ export default function handler(
   res: NextApiResponse<Data>,
 ) {
   res.setHeader(`Content-Type`, `image/svg+xml`);
-  res.send(generateTiles(req.query).svg() as any);
+  res.send(generateTiles(req.query)[0]);
 }

@@ -67,6 +67,7 @@ const apolloServer = new ApolloServer({
 
   context: ({ req }) => ({
     userAgent: req.headers[`user-agent`],
+    ip: parseIp(req),
   }),
 });
 
