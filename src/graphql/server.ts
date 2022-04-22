@@ -1,6 +1,5 @@
 import { ApolloError, ApolloServer } from 'apollo-server-micro';
 import { createApplication } from 'graphql-modules';
-import responseCachePlugin from 'apollo-server-plugin-response-cache';
 import {
   ApolloServerPluginLandingPageGraphQLPlayground,
   ApolloServerPluginCacheControl,
@@ -49,8 +48,6 @@ const schema = applyMiddleware(
 );
 
 const plugins = [
-  ApolloServerPluginCacheControl({ defaultMaxAge: DEFAULT_MAX_AGE }),
-  responseCachePlugin(),
   ApolloServerPluginLandingPageGraphQLPlayground({
     tabs: [
       {
