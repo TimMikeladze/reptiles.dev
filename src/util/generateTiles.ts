@@ -7,8 +7,7 @@ const getRandomElement = (array: any[]) => {
 };
 
 export interface GenerateSvgProps {
-  width?: number;
-  height?: number;
+  d?: number;
   size?: number;
   count?: number;
   hue?: number | string;
@@ -26,6 +25,23 @@ export interface GenerateSvgProps {
   alpha?: number;
   borderWidth?: number;
   borderColor?: string;
+
+  s?: number;
+  c?: number;
+  h?: number | string;
+  l?: 'bright' | 'light' | 'dark' | 'random';
+  f?:
+    | 'hsvArray'
+    | 'hslArray'
+    | 'hsl'
+    | 'hsla'
+    | 'rgbArray'
+    | 'rgb'
+    | 'rgba'
+    | 'hex';
+  a?: number;
+  bw?: number;
+  bc?: string;
 }
 
 export const generateTiles = (props: GenerateSvgProps) => {
@@ -37,15 +53,17 @@ export const generateTiles = (props: GenerateSvgProps) => {
 
   const canvas = SVG(document.documentElement) as Container;
 
-  const width = Number(props.width) || 200;
-  const height = Number(props.height) || 200;
-  const size = Number(props.size) || 50;
-  const count = Number(props.count) || 3;
-  const hue = props.hue;
-  const luminosity = props.luminosity || `light`;
+  const width = props.d || 200;
+  const height = props.d || 200;
+  const size = props.size || props.s || 50;
+  const count = props.count || props.c || 3;
+  const hue = props.hue || props.h;
+  const luminosity = props.luminosity || props.l || `random`;
   const seed = props.seed;
-  const format = props.format || `hex`;
-  const alpha = props.alpha;
+  const format = props.format || props.f || `hex`;
+  const alpha = props.alpha || props.a;
+  const bw = props.borderWidth || props.bw || 2;
+  const bc = props.borderColor || props.bc || `#000`;
 
   const colors = randomColor({
     count,
@@ -61,8 +79,8 @@ export const generateTiles = (props: GenerateSvgProps) => {
       const rect = canvas.rect(size, size);
       rect.fill(getRandomElement(colors));
       rect.stroke({
-        width: props.borderWidth || 2,
-        color: props.borderColor || `#000`,
+        width: bw,
+        color: bc,
       });
       rect.move(i * size, j * size);
     }
