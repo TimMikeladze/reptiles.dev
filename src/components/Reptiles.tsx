@@ -1,25 +1,20 @@
 import React from 'react';
-import Image, { ImageProps } from 'next/image';
-import { GenerateSvgProps } from '@/util/generateTiles';
-import { omit } from 'lodash';
+import { GenerateTilesOptions } from '@/util/generateTiles';
+import { loader } from '@/util/loader';
 
-export interface ReptilesProps extends ImageProps, GenerateSvgProps {}
+export interface ReptilesProps
+  extends Partial<
+    GenerateTilesOptions &
+      React.DetailedHTMLProps<
+        React.ImgHTMLAttributes<HTMLImageElement>,
+        HTMLImageElement
+      >
+  > {
+  host?: string;
+}
 
 const Reptiles = (props: Partial<ReptilesProps>) => {
-  const myLoader = () => {
-    const cleaned = omit(props, [`src`, `height`, `width`, `quality`]) as any;
-
-    const searchParams = new URLSearchParams(cleaned);
-
-    return (
-      `/api/tiles` +
-      (searchParams.toString() ? `?${searchParams.toString()}` : ``)
-    );
-  };
-
-  return (
-    <Image {...props} loader={props.loader || myLoader} src="reptiles.svg" />
-  );
+  return <img src={loader(props)()} {...props} />;
 };
 
 export default Reptiles;

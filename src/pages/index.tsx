@@ -11,7 +11,7 @@ import {
   Grid,
 } from '@nextui-org/react';
 import { useTheme as useNextTheme } from 'next-themes';
-import Image from 'next/image';
+import NextReptiles from '@/components/NextReptiles';
 import Reptiles from '@/components/Reptiles';
 
 const Index = () => {

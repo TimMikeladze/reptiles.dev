@@ -6,7 +6,7 @@ const getRandomElement = (array: any[]) => {
   return array[Math.floor(Math.random() * array.length)];
 };
 
-export interface GenerateSvgProps {
+export interface GenerateTilesOptions {
   d?: number;
   width?: number | string;
   height?: number | string;
@@ -46,7 +46,7 @@ export interface GenerateSvgProps {
   bc?: string;
 }
 
-export const generateTiles = (props: GenerateSvgProps = {}) => {
+export const generateTiles = (options: GenerateTilesOptions = {}) => {
   const window = createSVGWindow();
 
   const document = window.document;
@@ -55,17 +55,17 @@ export const generateTiles = (props: GenerateSvgProps = {}) => {
 
   const canvas = SVG(document.documentElement) as Container;
 
-  const width = props.width || props.d || 200;
-  const height = props.height || props.d || 200;
-  const size = props.size || props.s || 50;
-  const count = props.count || props.c || 3;
-  const hue = props.hue || props.h;
-  const luminosity = props.luminosity || props.l || `random`;
-  const seed = props.seed;
-  const format = props.format || props.f || `hex`;
-  const alpha = props.alpha || props.a;
-  const bw = props.borderWidth || props.bw || 2;
-  const bc = props.borderColor || props.bc || `#000`;
+  const width = options.width || options.d || 200;
+  const height = options.height || options.d || 200;
+  const size = options.size || options.s || 50;
+  const count = options.count || options.c || 3;
+  const hue = options.hue || options.h;
+  const luminosity = options.luminosity || options.l || `random`;
+  const seed = options.seed;
+  const format = options.format || options.f || `hex`;
+  const alpha = options.alpha || options.a;
+  const bw = options.borderWidth || options.bw || 2;
+  const bc = options.borderColor || options.bc || `#000`;
 
   const colors = randomColor({
     count,
