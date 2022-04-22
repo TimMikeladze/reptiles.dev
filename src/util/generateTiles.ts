@@ -8,6 +8,8 @@ const getRandomElement = (array: any[]) => {
 
 export interface GenerateSvgProps {
   d?: number;
+  width?: number | string;
+  height?: number | string;
   size?: number;
   count?: number;
   hue?: number | string;
@@ -44,7 +46,7 @@ export interface GenerateSvgProps {
   bc?: string;
 }
 
-export const generateTiles = (props: GenerateSvgProps) => {
+export const generateTiles = (props: GenerateSvgProps = {}) => {
   const window = createSVGWindow();
 
   const document = window.document;
@@ -53,8 +55,8 @@ export const generateTiles = (props: GenerateSvgProps) => {
 
   const canvas = SVG(document.documentElement) as Container;
 
-  const width = props.d || 200;
-  const height = props.d || 200;
+  const width = props.width || props.d || 200;
+  const height = props.height || props.d || 200;
   const size = props.size || props.s || 50;
   const count = props.count || props.c || 3;
   const hue = props.hue || props.h;
@@ -87,4 +89,15 @@ export const generateTiles = (props: GenerateSvgProps) => {
   }
 
   return canvas;
+};
+
+export const toDataUrl = (canvas: Container) => {
+  const encoded = encodeURIComponent(canvas.svg())
+    .replace(/'/g, `%27`)
+    .replace(/"/g, `%22`);
+
+  const header = `data:image/svg+xml,`;
+  const dataUrl = header + encoded;
+
+  return dataUrl;
 };

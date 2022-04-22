@@ -12,10 +12,7 @@ import {
 } from '@nextui-org/react';
 import { useTheme as useNextTheme } from 'next-themes';
 import Image from 'next/image';
-
-const myLoader = () => {
-  return `/api/tiles`;
-};
+import Reptiles from '@/components/Reptiles';
 
 const Index = () => {
   const { setTheme } = useNextTheme();
@@ -34,10 +31,10 @@ const Index = () => {
   return (
     <>
       <Grid.Container gap={2} justify="flex-start"></Grid.Container>
-      <Grid.Container gap={2} justify="center">
+      <Grid.Container gap={2} justify="space-between">
         <Grid xs={4}></Grid>
-        <Grid>
-          <Image loader={myLoader} src="img.svg" width={150} height={150} />
+        <Grid xs={8}>
+          <Reptiles width={800} height={800} s={30} count={3} />
         </Grid>
       </Grid.Container>
     </>
