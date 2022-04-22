@@ -55,10 +55,10 @@ export const generateTiles = (options: GenerateTilesOptions = {}) => {
 
   const canvas = SVG(document.documentElement) as Container;
 
-  const width = options.width || options.d || 200;
-  const height = options.height || options.d || 200;
+  const width = options.width || options.d || 100;
+  const height = options.height || options.d || 100;
   const size = options.size || options.s || 50;
-  const count = options.count || options.c || 3;
+  const count = options.count || options.c || 5;
   const hue = options.hue || options.h;
   const luminosity = options.luminosity || options.l || `random`;
   const seed = options.seed;
