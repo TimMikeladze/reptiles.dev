@@ -57,7 +57,7 @@ export const generateTiles = (options: GenerateTilesOptions = {}) => {
   const canvas = SVG(document.documentElement) as Container;
 
   const width =
-    options.width || options.w || options.dimension || options.d || 75;
+    options.width || options.w || options.dimension || options.d || 20;
   const height =
     options.height ||
     options.h ||
@@ -65,7 +65,7 @@ export const generateTiles = (options: GenerateTilesOptions = {}) => {
     options.d ||
     width ||
     75;
-  const size = options.size || options.s || 25;
+  const size = options.size || options.s || 20;
   const count = options.count || options.c || 5;
   const hue = options.hue;
   const luminosity = options.luminosity || options.l || `random`;
@@ -108,4 +108,16 @@ export const toDataUrl = (canvas: Container) => {
   const dataUrl = header + encoded;
 
   return dataUrl;
+};
+
+export const byteLength = (str: string) => {
+  // returns the byte length of an utf8 string
+  let s = str.length;
+  for (let i = str.length - 1; i >= 0; i--) {
+    const code = str.charCodeAt(i);
+    if (code > 0x7f && code <= 0x7ff) s++;
+    else if (code > 0x7ff && code <= 0xffff) s += 2;
+    if (code >= 0xdc00 && code <= 0xdfff) i--; //trail surrogate
+  }
+  return s;
 };
