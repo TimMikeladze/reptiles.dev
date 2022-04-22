@@ -5,7 +5,6 @@ import {
   ApolloServerPluginCacheControl,
 } from 'apollo-server-core';
 import {
-  DEFAULT_MAX_AGE,
   DEFAULT_QUERY,
   RATE_LIMIT_MAX,
   RATE_LIMIT_WINDOW,

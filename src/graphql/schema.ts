@@ -24,7 +24,7 @@ export default gql`
   input Options {
     dimension: Float
     width: Float
-    heigh: Float
+    height: Float
     size: Int
     count: Int
     hue: String

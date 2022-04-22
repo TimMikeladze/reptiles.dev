@@ -11,6 +11,8 @@ export interface GenerateTilesOptions {
   dimension?: number;
   width?: number | string;
   height?: number | string;
+  w?: number | string;
+  h?: number | string;
   size?: number;
   count?: number;
   hue?: number | string;
@@ -28,10 +30,8 @@ export interface GenerateTilesOptions {
   alpha?: number;
   borderWidth?: number;
   borderColor?: string;
-
   s?: number;
   c?: number;
-  h?: number | string;
   l?: 'bright' | 'light' | 'dark' | 'random';
   f?:
     | 'hsvArray'
@@ -56,11 +56,18 @@ export const generateTiles = (options: GenerateTilesOptions = {}) => {
 
   const canvas = SVG(document.documentElement) as Container;
 
-  const width = options.width || options.dimension || options.d || 100;
-  const height = options.height || options.dimension || options.d || 100;
-  const size = options.size || options.s || 50;
+  const width =
+    options.width || options.w || options.dimension || options.d || 75;
+  const height =
+    options.height ||
+    options.h ||
+    options.dimension ||
+    options.d ||
+    width ||
+    75;
+  const size = options.size || options.s || 25;
   const count = options.count || options.c || 5;
-  const hue = options.hue || options.h;
+  const hue = options.hue;
   const luminosity = options.luminosity || options.l || `random`;
   const seed = options.seed;
   const format = options.format || options.f || `hex`;
