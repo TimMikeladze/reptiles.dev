@@ -8,6 +8,7 @@ const getRandomElement = (array: any[]) => {
 
 export interface GenerateTilesOptions {
   d?: number;
+  dimension?: number;
   width?: number | string;
   height?: number | string;
   size?: number;
@@ -55,8 +56,8 @@ export const generateTiles = (options: GenerateTilesOptions = {}) => {
 
   const canvas = SVG(document.documentElement) as Container;
 
-  const width = options.width || options.d || 100;
-  const height = options.height || options.d || 100;
+  const width = options.width || options.dimension || options.d || 100;
+  const height = options.height || options.dimension || options.d || 100;
   const size = options.size || options.s || 50;
   const count = options.count || options.c || 5;
   const hue = options.hue || options.h;

@@ -5,6 +5,10 @@ module.exports = {
         source: '/svg',
         destination: '/api/tiles',
       },
+      {
+        source: '/graphql',
+        destination: '/api/graphql',
+      },
     ]
   },
 }
