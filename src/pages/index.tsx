@@ -78,7 +78,6 @@ const Index = () => {
 
   return (
     <>
-      <Grid.Container gap={2} justify="flex-start"></Grid.Container>
       <Grid.Container gap={4} justify="space-between">
         <Grid xs={12} md={4}>
           <div>
@@ -89,7 +88,9 @@ const Index = () => {
                   justifyContent: `space-between`,
                 }}
               >
-                <Text h4>reptiles.dev</Text>
+                <Text h4 css={{ pl: `$8` }}>
+                  reptiles.dev
+                </Text>
                 <Button auto light as="a" href={REPO_URL}>
                   <Icon
                     icon="ci:github"
