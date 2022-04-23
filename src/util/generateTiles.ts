@@ -2,6 +2,7 @@ import { createSVGWindow } from 'svgdom';
 import { Container, registerWindow, SVG } from '@svgdotjs/svg.js';
 import randomColor from 'randomcolor';
 import objectHash from 'object-hash';
+import { simple } from '../generators/simple';
 
 export interface GenerateTilesOptions {
   id?: string;
@@ -43,20 +44,40 @@ export interface GenerateTilesOptions {
   a?: number;
   bw?: number;
   bc?: string;
+  type?: 'simple';
+  t?: 'simple';
 }
 
-const getRandomElement = (array: any[]) => {
+export interface AllOptions
+  extends Pick<
+    GenerateTilesOptions,
+    | 'width'
+    | 'height'
+    | 'size'
+    | 'count'
+    | 'hue'
+    | 'luminosity'
+    | 'seed'
+    | 'format'
+    | 'alpha'
+    | 'bw'
+    | 'bc'
+  > {
+  colors?: string[] | undefined;
+}
+
+export const getRandomElement = (array: any[]) => {
   return array[Math.floor(Math.random() * array.length)];
 };
 
-const cache = new Map<string, string>();
+export const cache = new Map<string, string>();
 
 const uuidRegex =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 const uuidRegexString = `^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$`;
 
-const isValidUUIDV4 = (uuid: string): boolean => {
+export const isValidUUIDV4 = (uuid: string): boolean => {
   return uuidRegex.test(uuid);
 };
 
@@ -83,6 +104,12 @@ export const byteLength = (str: string): number => {
   return s;
 };
 
+export const patterns: {
+  [key: string]: any;
+} = {
+  [`simple`]: simple,
+};
+
 export const generateTiles = (
   options: GenerateTilesOptions = {},
 ): [string, Container | null] => {
@@ -105,56 +132,47 @@ export const generateTiles = (
   const bw = options.borderWidth || options.bw || 2;
   const bc = options.borderColor || options.bc || `#000`;
 
-  const id = options.id && isValidUUIDV4(options.id) ? options.id : null;
+  const id = options.id ? options.id : null;
 
-  if (id) {
-    const hash = objectHash({
-      id,
-      ...options,
-    });
-
-    const data = cache.get(hash);
-    if (data) {
-      return [data, null];
-    }
-  }
-
-  const window = createSVGWindow();
-
-  const document = window.document;
-
-  registerWindow(window, document);
-
-  const canvas = SVG(document.documentElement) as Container;
-
-  const colors = randomColor({
+  const allOptions: Partial<AllOptions> = {
+    width,
+    height,
+    size,
     count,
     hue,
     luminosity,
     seed,
     format,
     alpha,
-  });
+    bw,
+    bc,
+  };
 
-  for (let i = 0; i < width; i++) {
-    for (let j = 0; j < height; j++) {
-      const rect = canvas.rect(size, size);
-      rect.fill(getRandomElement(colors));
-      rect.stroke({
-        width: bw,
-        color: bc,
-      });
-      rect.move(i * size, j * size);
+  if (id) {
+    const hash = objectHash(allOptions);
+
+    const data = cache.get(hash);
+
+    if (data) {
+      return [data, null];
     }
   }
 
-  const svg = canvas.svg();
+  const [svg, canvas] = patterns[options.type || options.t || `simple`]({
+    ...allOptions,
+    colors: randomColor({
+      count,
+      hue,
+      luminosity,
+      seed,
+      format,
+      alpha,
+    }),
+  });
 
   if (id) {
-    const hash = objectHash({
-      id,
-      ...options,
-    });
+    delete allOptions.colors;
+    const hash = objectHash(allOptions);
     cache.set(hash, svg);
   }
 
