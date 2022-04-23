@@ -84,7 +84,7 @@ const Index = () => {
     <>
       <Grid.Container gap={2} justify="flex-start"></Grid.Container>
       <Grid.Container gap={4} justify="space-between">
-        <Grid xs={4}>
+        <Grid xs={12} md={4}>
           <div>
             <Card css={{ height: `max-content` }}>
               <Card.Header
@@ -264,7 +264,8 @@ const Index = () => {
           </div>
         </Grid>
         <Grid
-          xs={8}
+          xs={12}
+          md={8}
           css={{
             height: `100vh`,
           }}
