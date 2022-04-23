@@ -1,17 +1,17 @@
 # reptiles
 
+Generate colorful SVG placeholder images. Useful for creating attractive and pseudorandom, cacheable placeholders.
+
 🦎
  [Website](https://reptiles.dev) · 🚀 [Quick SVG](https://reptiles.dev/svg) · 🛝 [GraphQL Playground](https://reptiles.dev/graphql)
 
 <img width="500px" src="docs/example.png">
 
-## About
-
-Generate colorful SVG placeholder images. Useful for creating attractive and pseudorandom, cacheable placeholders.
-
 ## Usage
 
-Simply generate an image by using the `/svg` endpoint and providing optional query parameters.
+Simply generate an image by using the [/svg](https://reptiles.dev/svg) endpoint to generate a single SVG. endpoint and providing optional query parameters.
+
+You can also visit the [Website](https://reptiles.dev) to generate placeholder images using visual editor with shareable urls.
 
 Alternatively visit the [GraphQL playground](https://reptiles.dev/graphql) and read the detailed documentation on all available options.
 

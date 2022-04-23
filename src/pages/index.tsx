@@ -39,7 +39,7 @@ const KofiButtonContainer = styled(`div`, {
   display: `flex`,
   justifyContent: `space-between`,
   alignItems: `center`,
-});
+} as any);
 
 const Index = () => {
   const { setTheme } = useNextTheme();
