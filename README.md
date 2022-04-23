@@ -3,7 +3,7 @@
 Generate colorful SVG placeholder images. Useful for creating attractive and pseudorandom, cacheable placeholders.
 
 🦎
- [Website](https://reptiles.dev) · 🚀 [Quick Placeholder](https://reptiles.dev/svg) · 🛝 [GraphQL Playground](https://reptiles.dev/graphql)
+ [Website](https://reptiles.dev) · 🔗 [Quick Link](https://reptiles.dev/svg) · 🛝 [GraphQL Playground](https://reptiles.dev/graphql)
 
 <img width="500px" src="docs/example.png" />
 
