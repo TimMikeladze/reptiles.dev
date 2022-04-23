@@ -1,3 +1,11 @@
+export const SITE_NAME = `Reptiles.dev`;
+export const SITE_TITLE = SITE_NAME;
+export const SITE_DESCRIPTION = `Generate colorful SVG placeholder images.`;
+
+export const LOC_URL = `https://linesofcode.dev`;
+
+export const REPO_URL = `https://github.com/TimMikeladze/reptiles.dev`;
+
 export const PRODUCTION_DOMAIN = `reptiles.dev`;
 
 export const PREVIEW_DOMAIN = `reptiles.vercel.app`;

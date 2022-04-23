@@ -3,10 +3,18 @@ import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
 export const lightTheme = createTheme({
   type: `light`,
-  theme: {},
+  theme: {
+    colors: {
+      primary: `#4ADE7B`,
+    },
+  },
 });
 
 export const darkTheme = createTheme({
   type: `dark`,
-  theme: {},
+  theme: {
+    colors: {
+      primary: `#4ADE7B`,
+    },
+  },
 });
