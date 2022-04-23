@@ -70,12 +70,8 @@ const Index = () => {
     setId(nanoid(5));
     setSeed(nanoid(5));
     setCount(getRandomInt(1, 10));
-    setSize(getRandomInt(10, 40));
-    setBorderWidth(getRandomInt(1, 10));
-    setDimension(getRandomInt(10, 30));
+    setDimension(20);
     setLuminosity([`random`]);
-    setBorderColor(randomColor());
-    setHue(randomColor());
   };
 
   const url = loader(options)();
