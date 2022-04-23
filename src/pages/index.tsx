@@ -89,7 +89,7 @@ const Index = () => {
                   justifyContent: `space-between`,
                 }}
               >
-                <Text h4>Reptiles.dev</Text>
+                <Text h4>reptiles.dev</Text>
                 <Button auto light as="a" href={REPO_URL}>
                   <Icon
                     icon="ci:github"

@@ -1,5 +1,5 @@
-export const SITE_NAME = `Reptiles.dev`;
-export const SITE_TITLE = SITE_NAME;
+export const SITE_NAME = `reptiles.dev`;
+export const SITE_TITLE = `reptiles`;
 export const SITE_DESCRIPTION = `Generate colorful SVG placeholder images.`;
 
 export const LOC_URL = `https://linesofcode.dev`;
