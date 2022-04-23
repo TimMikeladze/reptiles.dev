@@ -11,7 +11,7 @@ Generate colorful SVG placeholder images. Useful for creating attractive and pse
 
 Simply generate an image by using the [/svg](https://reptiles.dev/svg) endpoint to generate a single SVG. endpoint and providing optional query parameters.
 
-You can also visit the [Website](https://reptiles.dev) to generate placeholder images using visual editor with shareable urls.
+You also can visit [Reptiles.dev](https://reptiles.dev) to generate placeholder images using a UI and create shareable urls.
 
 Alternatively visit the [GraphQL playground](https://reptiles.dev/graphql) and read the detailed documentation on all available options.
 
