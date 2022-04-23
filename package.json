@@ -1,6 +1,6 @@
 {
   "name": "reptiles",
-  "description": "Generate svg images with beautiful and colorful tiles. Useful for creating attractive and pseudorandom placeholders.",
+  "description": "Generate svg images with beautiful and colorful tiles. Useful for creating attractive and pseudorandom, cacheable placeholders.",
   "version": "0.0.1",
   "private": true,
   "author": "Tim Mikeladze <tim.mikeladze@gmail.com>",
