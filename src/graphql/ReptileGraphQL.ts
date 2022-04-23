@@ -17,9 +17,19 @@ const ReptileGraphQL = createModule({
   resolvers: {
     Query: {
       svg(root: any, args: any, context: any) {
-        const [svg] = generateTiles(args.options);
+        const options = {
+          ...args.options,
+          colors: args.options.colors
+            ? args.options.colors
+                .map((x: string) => x.replace(/[^a-zA-Z0-9]/g, ``))
+                .join(`-`)
+            : undefined,
+        };
+
+        const [svg] = generateTiles(options);
+
         return {
-          url: getAppUrl(loader(args.options)()),
+          url: getAppUrl(loader(options)()),
           data: toDataUrl(svg),
         };
       },

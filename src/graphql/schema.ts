@@ -92,5 +92,10 @@ export default gql`
     A predetermined type of pattern will be generated. Defaults to "simple"
     """
     type: Type
+
+    """
+    A list of color hex codes to use. For example, ["7b3357", ""ff00ff", "000000"]
+    """
+    colors: [String!]
   }
 `;

@@ -46,6 +46,8 @@ export interface GenerateTilesOptions {
   bc?: string;
   type?: 'simple';
   t?: 'simple';
+  colors?: string;
+  cs?: string;
 }
 
 export interface AllOptions
@@ -160,14 +162,16 @@ export const generateTiles = (
 
   const [svg, canvas] = patterns[options.type || options.t || `simple`]({
     ...allOptions,
-    colors: randomColor({
-      count,
-      hue,
-      luminosity,
-      seed,
-      format,
-      alpha,
-    }),
+    colors:
+      (options.colors || options.cs)?.split(`-`)?.map((x) => `#${x}`) ||
+      randomColor({
+        count,
+        hue,
+        luminosity,
+        seed,
+        format,
+        alpha,
+      }),
   });
 
   if (id) {
