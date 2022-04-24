@@ -12,7 +12,6 @@ import {
 } from '@nextui-org/react';
 import Reptiles from '@/components/Reptiles';
 import { Icon } from '@iconify/react';
-import { loader } from '@/util/loader';
 import KofiButton from 'kofi-button';
 
 import getAppUrl from '@/util/getAppUrl';

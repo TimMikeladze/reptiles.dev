@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }: any) {
       </Head>
       <NextSeo
         title={SITE_TITLE}
-        description={``}
+        description={SITE_DESCRIPTION}
         canonical={getAppUrl()}
         openGraph={{
           site_name: SITE_NAME,
