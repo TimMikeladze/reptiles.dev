@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Card,
   Text,
@@ -32,7 +32,6 @@ const KofiButtonContainer = styled(`div`, {
 
 export const getStaticProps = async () => {
   return {
-    revalidate: 60,
     props: {
       options: {
         luminosity: `random`,
@@ -95,7 +94,20 @@ const Index = (props: any) => {
     navigator.clipboard.writeText(getAppUrl(`/svg?key=${key}`));
   };
 
-  const url = loader(options)();
+  useEffect(() => {
+    setKey(customId());
+  }, [
+    luminosity,
+    id,
+    seed,
+    luminosity,
+    hue,
+    dimension,
+    count,
+    size,
+    borderWidth,
+    borderColor,
+  ]);
 
   return (
     <>
@@ -121,7 +133,22 @@ const Index = (props: any) => {
               </Card.Header>
               <Divider />
               <Card.Body css={{ py: `$10` }}>
-                <Text h6>Generate colorful SVG placeholder images.</Text>
+                <Text h5 css={{ mx: `$6` }}>
+                  Generate colorful and temporarily identifiable SVGs.
+                </Text>
+                <br />
+                <Text h6 css={{ mx: `$6` }}>
+                  Every image is given a key and cached for a short while.
+                  Including the key of the image in a link will return the
+                  cached image. If no image is cached than one will be generated
+                  cached with the given key.
+                  <br />
+                  <br />
+                  This method of generating random yet temporarily identifiable
+                  image is great to use when mocking & developing front-ends,
+                  mapping some data to ids, or as placeholder images inside a
+                  Storybook.
+                </Text>
                 <Text
                   css={{
                     borderColor: `#333333`,
@@ -135,6 +162,8 @@ const Index = (props: any) => {
                   h6
                 >
                   {`<img src="${getAppUrl(`/svg`)}" />`}
+                  <br />
+                  {`<img src="${getAppUrl(`/svg?key=${key}`)}" />`}
                 </Text>
                 <Grid.Container gap={2} css={{ mt: `$4` }}>
                   <Grid xs={12}>

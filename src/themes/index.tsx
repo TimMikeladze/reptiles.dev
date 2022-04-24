@@ -1,5 +1,4 @@
-import { createTheme, NextUIProvider } from '@nextui-org/react';
-import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import { createTheme } from '@nextui-org/react';
 
 export const lightTheme = createTheme({
   type: `light`,
