@@ -16,7 +16,7 @@ import { loader } from '@/util/loader';
 import KofiButton from 'kofi-button';
 
 import getAppUrl from '@/util/getAppUrl';
-import { LOC_URL, REPO_URL } from '@/util/constants';
+import { LOC_URL, REPO_URL, SITE_NAME } from '@/util/constants';
 import { customId } from '@/util/customId';
 
 const getRandomInt = (min: number, max: number) => {
@@ -135,7 +135,7 @@ const Index = (props: any) => {
               <Divider />
               <Card.Body css={{ py: `$10` }}>
                 <Text h5 css={{ mx: `$6` }}>
-                  Generate colorful and temporarily identifiable SVGs
+                  Generate colorful and temporarily identifiable SVGs.
                 </Text>
                 <br />
                 <Text h6 css={{ mx: `$6` }}>
@@ -164,7 +164,7 @@ const Index = (props: any) => {
                 >
                   {`<img src="${getAppUrl(`/svg`)}" />`}
                   <br />
-                  {`<img src="${getAppUrl(`/svg?key=${key}`)}" />`}
+                  {`<img src="${getAppUrl(`/svg?k=${key}`)}" />`}
                 </Text>
                 <Grid.Container gap={2} css={{ mt: `$4` }}>
                   <Grid xs={12}>
@@ -178,16 +178,15 @@ const Index = (props: any) => {
                   </Grid>
                   <Grid xs={12}>
                     <Input
-                      disabled
                       size="md"
                       fullWidth
                       css={{
                         width: `100%`,
                         paddingTop: 10,
                       }}
-                      bordered
+                      labelLeft={`reptiles.dev`}
                       contentRightStyling={false}
-                      value={getAppUrl(`/svg?key=${key}`, true, false)}
+                      value={`/svg?k=${key}`}
                       contentRight={
                         <Tooltip content="Copy URL" rounded color="primary">
                           <Button
