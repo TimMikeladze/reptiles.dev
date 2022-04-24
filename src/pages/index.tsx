@@ -15,7 +15,7 @@ import { Icon } from '@iconify/react';
 import { loader } from '@/util/loader';
 import KofiButton from 'kofi-button';
 
-import { nanoid } from 'nanoid';
+import { customAlphabet } from 'nanoid';
 import getAppUrl from '@/util/getAppUrl';
 import { LOC_URL, REPO_URL } from '@/util/constants';
 
@@ -30,13 +30,15 @@ const KofiButtonContainer = styled(`div`, {
   alignItems: `center`,
 } as any);
 
+const customId = customAlphabet(`1234567890abcdef`, 4);
+
 export const getStaticProps = async () => {
   return {
     revalidate: 60,
     props: {
       luminosity: `random`,
-      id: nanoid(4),
-      seed: nanoid(4),
+      id: customId(),
+      seed: customId(),
       count: 4,
       size: 40,
       borderWidth: 2,
@@ -74,8 +76,8 @@ const Index = (props: any) => {
   };
 
   const handleRandomize = () => {
-    setId(nanoid(4));
-    setSeed(nanoid(4));
+    setId(customId());
+    setSeed(customId());
     setCount(getRandomInt(2, 10));
     setDimension(20);
     setLuminosity([`random`]);
