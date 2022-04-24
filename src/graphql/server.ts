@@ -1,9 +1,6 @@
 import { ApolloError, ApolloServer } from 'apollo-server-micro';
 import { createApplication } from 'graphql-modules';
-import {
-  ApolloServerPluginLandingPageGraphQLPlayground,
-  ApolloServerPluginCacheControl,
-} from 'apollo-server-core';
+import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
 import {
   DEFAULT_QUERY,
   RATE_LIMIT_MAX,

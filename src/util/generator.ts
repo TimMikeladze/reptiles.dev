@@ -1,8 +1,9 @@
 import { Container } from '@svgdotjs/svg.js';
 import randomColor from 'randomcolor';
 import objectHash from 'object-hash';
-import { simple } from '../generators/simple';
+import { simple } from '@/generators/simple';
 import { customId } from '@/util/customId';
+import Redis from 'ioredis';
 
 export interface GenerateTilesOptions {
   id?: string;
@@ -72,12 +73,9 @@ export interface AllOptions
   colors?: string[] | undefined;
 }
 
-export const getRandomElement = (array: any[]) => {
-  return array[Math.floor(Math.random() * array.length)];
-};
-
-export const cache = new Map<string, string>();
-export const shortCache = new Map<string, string>();
+const cache = new Map<string, string>();
+const shortCache = new Map<string, string>();
+const redis = new Redis(process.env.REDIS_URL as string);
 
 export const toDataUrl = (svg: string): string => {
   const encoded = encodeURIComponent(svg)
@@ -96,9 +94,9 @@ export const patterns: {
   [`simple`]: simple,
 };
 
-export const generateTiles = (
+export const generator = async (
   options: GenerateTilesOptions = {},
-): [string, Container | null] => {
+): Promise<[string, Container | null]> => {
   const width =
     options.width || options.w || options.dimension || options.d || 20;
   const height =
@@ -142,6 +140,9 @@ export const generateTiles = (
       const data = cache.get(hash);
 
       if (data) {
+        if (redis) {
+          await redis.incr(`numberOfImagesReturnedFromCache`);
+        }
         return [data, null];
       }
     }
@@ -161,7 +162,14 @@ export const generateTiles = (
       }),
   });
 
+  if (redis) {
+    await redis.incr(`numberOfImagesCreated`);
+  }
+
   if (key) {
+    if (redis) {
+      await redis.incr(`numberOfImagesCached`);
+    }
     delete allOptions.colors;
     const hash = objectHash(allOptions);
     shortCache.set(key, hash);

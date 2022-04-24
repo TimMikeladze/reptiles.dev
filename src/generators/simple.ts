@@ -1,10 +1,7 @@
 import { createSVGWindow } from 'svgdom';
 import { Container, registerWindow, SVG } from '@svgdotjs/svg.js';
-import {
-  AllOptions,
-  GenerateTilesOptions,
-  getRandomElement,
-} from '../util/generateTiles';
+import { sample } from 'lodash';
+import { AllOptions } from '@/util/generator';
 
 export const simple = (options: AllOptions) => {
   const { width, height, size, colors, bw, bc } = options;
@@ -20,7 +17,7 @@ export const simple = (options: AllOptions) => {
     for (let i = 0; i < width; i++) {
       for (let j = 0; j < height; j++) {
         const rect = canvas.rect(size, size);
-        rect.fill(getRandomElement(colors as any));
+        rect.fill(sample(colors as any));
         rect.stroke({
           width: bw,
           color: bc,

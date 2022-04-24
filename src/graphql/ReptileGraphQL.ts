@@ -3,9 +3,9 @@ import { createModule } from 'graphql-modules';
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import { generateTiles, toDataUrl } from '@/util/generateTiles';
 import { loader } from '@/util/loader';
 import getAppUrl from '@/util/getAppUrl';
+import { generator, toDataUrl } from '@/util/generator';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -16,7 +16,7 @@ const ReptileGraphQL = createModule({
   dirname: __dirname,
   resolvers: {
     Query: {
-      svg(root: any, args: any, context: any) {
+      async svg(root: any, args: any) {
         const options = {
           ...args.options,
           colors: args.options.colors
@@ -26,7 +26,7 @@ const ReptileGraphQL = createModule({
             : undefined,
         };
 
-        const [svg] = generateTiles(options);
+        const [svg] = await generator(options);
 
         return {
           url: getAppUrl(loader(options)()),

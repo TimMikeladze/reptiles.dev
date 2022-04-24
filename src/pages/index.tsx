@@ -15,10 +15,8 @@ import { Icon } from '@iconify/react';
 import KofiButton from 'kofi-button';
 
 import getAppUrl from '@/util/getAppUrl';
-import { LOC_URL, REPO_URL, SITE_NAME } from '@/util/constants';
+import { LOC_URL, REPO_URL } from '@/util/constants';
 import { customId } from '@/util/customId';
-import { loader } from '@/util/loader';
-import { omit } from 'lodash';
 
 const getRandomInt = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;

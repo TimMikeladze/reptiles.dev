@@ -1,6 +1,6 @@
 import React from 'react';
-import { GenerateTilesOptions } from '@/util/generateTiles';
 import { loader } from '@/util/loader';
+import { GenerateTilesOptions } from '@/util/generator';
 
 export interface ReptilesProps {
   host?: string;
@@ -15,9 +15,11 @@ export interface ReptilesProps {
 
 const Reptiles = (props: Partial<ReptilesProps> = {}) => {
   return (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       src={loader({ host: props.host, ...props.options })()}
       {...props.imgProps}
+      alt="reptiles"
     />
   );
 };
