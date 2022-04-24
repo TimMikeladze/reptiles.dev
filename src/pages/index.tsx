@@ -1,13 +1,7 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import {
-  Container,
   Card,
-  Row,
   Text,
-  Col,
-  Spacer,
-  Switch,
-  useTheme,
   Grid,
   Divider,
   Button,
@@ -16,18 +10,13 @@ import {
   Tooltip,
   styled,
 } from '@nextui-org/react';
-import { useTheme as useNextTheme } from 'next-themes';
-import NextReptiles from '@/components/NextReptiles';
 import Reptiles from '@/components/Reptiles';
 import { Icon } from '@iconify/react';
 import { loader } from '@/util/loader';
 import KofiButton from 'kofi-button';
 
-import { customId } from '@/util/customId';
 import { nanoid } from 'nanoid';
 import getAppUrl from '@/util/getAppUrl';
-import { sample } from 'lodash';
-import randomColor from 'randomcolor';
 import { LOC_URL, REPO_URL } from '@/util/constants';
 
 const getRandomInt = (min: number, max: number) => {
@@ -42,8 +31,6 @@ const KofiButtonContainer = styled(`div`, {
 } as any);
 
 const Index = () => {
-  const { setTheme } = useNextTheme();
-  const { isDark, type } = useTheme();
   const [luminosity, setLuminosity] = React.useState<any>([`random`]);
   const [id, setId] = React.useState<string>(nanoid(5));
   const [seed, setSeed] = React.useState<string>(nanoid(5));
@@ -69,7 +56,7 @@ const Index = () => {
   const handleRandomize = () => {
     setId(nanoid(5));
     setSeed(nanoid(5));
-    setCount(getRandomInt(1, 10));
+    setCount(getRandomInt(2, 10));
     setDimension(20);
     setLuminosity([`random`]);
   };
