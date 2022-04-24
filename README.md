@@ -9,7 +9,7 @@ Generate colorful and temporarily identifiable SVGs with unique urls.
 
 ## Usage
 
-Simply generate an image by using the [/svg](https://reptiles.dev/svg) endpoint to generate a single SVG, providing any optional query parameters. Include a key in an url like [/svg?key=123](https://reptiles.dev/svg) to generate a unique but temporary image cached with this key for a short time.
+Simply generate an image by using the [/svg](https://reptiles.dev/svg) endpoint to generate a single SVG, providing any optional query parameters. Include a key in an url like [/svg?key=123](https://reptiles.dev/svg?key=123) to generate a unique but temporary image cached with this key for a short time.
 
 You also can visit [reptiles.dev](https://reptiles.dev) to generate placeholder images using a UI and create shareable urls.
 
