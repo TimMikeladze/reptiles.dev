@@ -30,15 +30,35 @@ const KofiButtonContainer = styled(`div`, {
   alignItems: `center`,
 } as any);
 
-const Index = () => {
-  const [luminosity, setLuminosity] = React.useState<any>([`random`]);
-  const [id, setId] = React.useState<string>(nanoid(5));
-  const [seed, setSeed] = React.useState<string>(nanoid(5));
-  const [count, setCount] = React.useState<number>(4);
-  const [size, setSize] = React.useState<number>(40);
-  const [borderWidth, setBorderWidth] = React.useState<number>(2);
-  const [dimension, setDimension] = React.useState<number>(20);
-  const [borderColor, setBorderColor] = React.useState<string>(`#ffffff`);
+export const getStaticProps = async () => {
+  return {
+    revalidate: 60,
+    props: {
+      luminosity: `random`,
+      id: nanoid(4),
+      seed: nanoid(4),
+      count: 4,
+      size: 40,
+      borderWidth: 2,
+      dimension: 20,
+      borderColor: `#ffffff`,
+    },
+  };
+};
+
+const Index = (props: any) => {
+  const [luminosity, setLuminosity] = React.useState<any>([props.luminosity]);
+  const [id, setId] = React.useState<string>(props.id);
+  const [seed, setSeed] = React.useState<string>(props.seed);
+  const [count, setCount] = React.useState<number>(props.count);
+  const [size, setSize] = React.useState<number>(props.size);
+  const [borderWidth, setBorderWidth] = React.useState<number>(
+    props.borderWidth,
+  );
+  const [dimension, setDimension] = React.useState<number>(props.dimension);
+  const [borderColor, setBorderColor] = React.useState<string>(
+    props.borderColor,
+  );
   const [hue, setHue] = React.useState<string>();
 
   const options = {
@@ -54,8 +74,8 @@ const Index = () => {
   };
 
   const handleRandomize = () => {
-    setId(nanoid(5));
-    setSeed(nanoid(5));
+    setId(nanoid(4));
+    setSeed(nanoid(4));
     setCount(getRandomInt(2, 10));
     setDimension(20);
     setLuminosity([`random`]);
@@ -94,11 +114,13 @@ const Index = () => {
                     borderWidth: 1,
                     borderStyle: `dashed`,
                     borderRadius: 8,
-                    mt: `$10`,
+                    mt: `$9`,
                     mx: `$6`,
+                    p: `$6`,
                   }}
+                  h6
                 >
-                  <pre>{`<img src="${getAppUrl(`/svg`)}" />`}</pre>
+                  {`<img src="${getAppUrl(`/svg`)}" />`}
                 </Text>
                 <Grid.Container gap={2} css={{ mt: `$4` }}>
                   <Grid xs={12}>
