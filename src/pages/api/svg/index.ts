@@ -12,7 +12,7 @@ export default function handler(
   const options = {
     ...req.query,
   };
-  if (options.key) {
+  if (options.key && Array.isArray(options.key)) {
     options.key = options.key[0];
   }
   res.send(generateTiles(options)[0]);
