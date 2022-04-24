@@ -19,7 +19,7 @@ Alternatively visit the [GraphQL playground](https://reptiles.dev/graphql) and r
 
 Every image is given a key and cached for a short while. Including the key of the image in a link will return the cached image. If no image is cached than one will be generated cached with the given key.
 
-This method of generating random yet temporarily identifiable image is great to use when mocking & developing front-ends, mapping some data to ids, or as placeholder images inside a
+This method of generating random yet temporarily identifiable image is great to use when mocking & developing front-ends, mapping some fake ids to images, or as placeholder images inside a
 Storybook.
 
 ## Examples

@@ -135,7 +135,8 @@ const Index = (props: any) => {
               <Divider />
               <Card.Body css={{ py: `$10` }}>
                 <Text h5 css={{ mx: `$6` }}>
-                  Generate colorful and temporarily identifiable SVGs.
+                  Generate colorful and temporarily identifiable SVGs with
+                  unique urls.
                 </Text>
                 <br />
                 <Text h6 css={{ mx: `$6` }}>
@@ -147,8 +148,8 @@ const Index = (props: any) => {
                   <br />
                   This method of generating random yet temporarily identifiable
                   image is great to use when mocking & developing front-ends,
-                  mapping some data to ids, or as placeholder images inside a
-                  Storybook.
+                  mapping some fake ids to images, or as placeholder images
+                  inside a Storybook.
                 </Text>
                 <Text
                   css={{
