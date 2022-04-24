@@ -92,10 +92,8 @@ const Index = (props: any) => {
   };
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(getAppUrl(`/svg?key=${key}`));
+    navigator.clipboard.writeText(getAppUrl(`/svg/${key}`));
   };
-
-  const url = loader(options)();
 
   return (
     <>
@@ -135,6 +133,9 @@ const Index = (props: any) => {
                   h6
                 >
                   {`<img src="${getAppUrl(`/svg`)}" />`}
+                  <br />
+                  <br />
+                  {`<img src="${getAppUrl(`/svg/${key}`)}" />`}
                 </Text>
                 <Grid.Container gap={2} css={{ mt: `$4` }}>
                   <Grid xs={12}>
@@ -157,7 +158,7 @@ const Index = (props: any) => {
                       }}
                       bordered
                       contentRightStyling={false}
-                      value={getAppUrl(`/svg?key=${key}`, true, false)}
+                      value={getAppUrl(`/svg/${key}`, true, false)}
                       contentRight={
                         <Tooltip content="Copy URL" rounded color="primary">
                           <Button

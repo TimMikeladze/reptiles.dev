@@ -3,12 +3,16 @@ module.exports = {
     return [
       {
         source: '/svg',
-        destination: '/api/tiles',
+        destination: '/api/svg',
+      },
+      {
+        source: '/svg/:key',
+        destination: '/api/svg/:key',
       },
       {
         source: '/graphql',
         destination: '/api/graphql',
       },
-    ]
+    ];
   },
-}
+};
