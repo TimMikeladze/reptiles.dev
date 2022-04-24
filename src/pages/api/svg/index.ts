@@ -8,6 +8,13 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>,
 ) {
+  console.log(req.query);
   res.setHeader(`Content-Type`, `image/svg+xml`);
-  res.send(generateTiles(req.query)[0]);
+  const options = {
+    ...req.query,
+  };
+  if (options.key) {
+    options.key = options.key[0];
+  }
+  res.send(generateTiles(options)[0]);
 }
