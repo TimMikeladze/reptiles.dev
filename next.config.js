@@ -10,8 +10,8 @@ module.exports = {
         destination: '/api/svg',
       },
       {
-        source: '/graphql',
-        destination: '/api/graphql',
+        source: '/:key',
+        destination: '/api/svg',
       },
     ];
   },

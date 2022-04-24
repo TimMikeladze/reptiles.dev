@@ -2,18 +2,26 @@
 
 Generate colorful and temporarily identifiable SVGs with unique urls.
 
+```html
+<img src="https://reptiles.dev/123" />
+```
+
 🦎
- [Website](https://reptiles.dev) · 🔗 [Quick Link](https://reptiles.dev/svg) · 🛝 [GraphQL Playground](https://reptiles.dev/graphql)
+ [Website](https://reptiles.dev) · 🔗 [Random SVG](https://reptiles.dev/svg) · 🛝 [GraphQL Playground](https://reptiles.dev/api/graphql)
 
 <img width="500px" src="docs/example.png" />
 
 ## Usage
 
-Simply generate an image by using the [/svg](https://reptiles.dev/svg) endpoint to generate a single SVG, providing any optional query parameters. Include a key in an url like [/svg?key=123](https://reptiles.dev/svg?key=123) to generate a unique but temporary image cached with this key for a short time.
+Get a random image: [reptiles.dev/svg](https://reptiles.dev/svg)
 
-You also can visit [reptiles.dev](https://reptiles.dev) to generate placeholder images using a UI and create shareable urls.
+Get a temporarily identifiable random image: [reptiles.dev/123](https://reptiles.dev/123) or [reptiles.dev/svg?key=123](https://reptiles.dev/svg?key=123)
 
-Alternatively visit the [GraphQL playground](https://reptiles.dev/graphql) and read the detailed documentation on all available options.
+Customize generated image: [reptiles.dev/svg?hue=green&luminosity=dark&size=20](https://reptiles.dev/svg?hue=green&luminosity=dark&size=20)
+
+Visit [reptiles.dev](https://reptiles.dev) to use a UI to customize generated images and view available options.
+
+Alternatively use the [GraphQL playground](https://reptiles.dev/api/graphql) and read the detailed documentation on all available options.
 
 ## How it works
 
@@ -27,10 +35,14 @@ Storybook.
 ```html
 <img src="https://reptiles.dev/svg" />
 
+<img src="https://reptiles.dev/some-identifier" />
+
 <img src="https://reptiles.dev/svg?width=10&luminosity=light&hue=147A34" />
 ```
 
 <img src="https://reptiles.dev/svg" />
-
+<br />
+<img src="https://reptiles.dev/some-identifier" />
+<br />
 <img src="https://reptiles.dev/svg?width=10&luminosity=dark&hue=147A34" />
 

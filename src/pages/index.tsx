@@ -17,6 +17,8 @@ import KofiButton from 'kofi-button';
 import getAppUrl from '@/util/getAppUrl';
 import { LOC_URL, REPO_URL, SITE_NAME } from '@/util/constants';
 import { customId } from '@/util/customId';
+import { loader } from '@/util/loader';
+import { omit } from 'lodash';
 
 const getRandomInt = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -91,7 +93,7 @@ const Index = (props: any) => {
   };
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(getAppUrl(`/svg?key=${key}`));
+    navigator.clipboard.writeText(getAppUrl(`/${key}`));
   };
 
   useEffect(() => {
@@ -164,7 +166,10 @@ const Index = (props: any) => {
                 >
                   {`<img src="${getAppUrl(`/svg`)}" />`}
                   <br />
-                  {`<img src="${getAppUrl(`/svg?k=${key}`)}" />`}
+                  {`<img src="${getAppUrl(`/svg/?size=20&hue=green`)}" />`}
+                  <br />
+                  <br />
+                  {`<img src="${getAppUrl(`/${key}`)}" />`}
                 </Text>
                 <Grid.Container gap={2} css={{ mt: `$4` }}>
                   <Grid xs={12}>
@@ -186,7 +191,7 @@ const Index = (props: any) => {
                       }}
                       labelLeft={`reptiles.dev`}
                       contentRightStyling={false}
-                      value={`/svg?k=${key}`}
+                      value={`/${key}`}
                       contentRight={
                         <Tooltip content="Copy URL" rounded color="primary">
                           <Button

@@ -50,7 +50,7 @@ const plugins = [
   ApolloServerPluginLandingPageGraphQLPlayground({
     tabs: [
       {
-        endpoint: getAppUrl(`/graphql`),
+        endpoint: getAppUrl(`/api/graphql`),
         query: DEFAULT_QUERY,
       },
     ],
