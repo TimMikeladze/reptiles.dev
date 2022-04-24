@@ -32,6 +32,7 @@ const KofiButtonContainer = styled(`div`, {
 
 export const getStaticProps = async () => {
   return {
+    revalidate: 60,
     props: {
       options: {
         luminosity: `random`,
