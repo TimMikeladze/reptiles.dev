@@ -3,6 +3,10 @@
 Generate colorful and temporarily identifiable SVGs with unique urls.
 
 ```html
+<!-- A random svg  -->
+<img src="https://reptiles.dev/svg " />
+
+<!-- A temporarily identifiable random svg with key 123 or any key of your choosing.  -->
 <img src="https://reptiles.dev/123" />
 ```
 
