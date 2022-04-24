@@ -164,6 +164,7 @@ const Index = (props: any) => {
                 >
                   {`<img src="${getAppUrl(`/svg`)}" />`}
                   <br />
+                  <br />
                   {`<img src="${getAppUrl(`/svg/?size=20&hue=green`)}" />`}
                   <br />
                   <br />
