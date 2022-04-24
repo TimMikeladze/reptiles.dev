@@ -1,6 +1,6 @@
 import React from 'react';
 import { GenerateTilesOptions } from '@/util/generateTiles';
-import { loader } from '@/util/loader';
+import getAppUrl from '@/util/getAppUrl';
 
 export interface ReptilesProps {
   host?: string;
@@ -15,10 +15,7 @@ export interface ReptilesProps {
 
 const Reptiles = (props: Partial<ReptilesProps> = {}) => {
   return (
-    <img
-      src={loader({ host: props.host, ...props.options })()}
-      {...props.imgProps}
-    />
+    <img src={getAppUrl(`/svg/${props?.options?.key}`)} {...props.imgProps} />
   );
 };
 

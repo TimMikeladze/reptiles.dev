@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import {
   Card,
   Text,
@@ -78,9 +78,24 @@ const Index = (props: any) => {
     dimension,
     count,
     size,
-    borderWidth: borderWidth,
-    borderColor: borderColor,
+    borderWidth,
+    borderColor,
   };
+
+  useEffect(() => {
+    setKey(customId());
+  }, [
+    luminosity,
+    id,
+    seed,
+    luminosity,
+    hue,
+    dimension,
+    count,
+    size,
+    borderWidth,
+    borderColor,
+  ]);
 
   const handleRandomize = () => {
     setKey(customId());
