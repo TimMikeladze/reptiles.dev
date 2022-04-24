@@ -88,6 +88,18 @@ const Index = () => {
               <Divider />
               <Card.Body css={{ py: `$10` }}>
                 <Text h6>Generate colorful SVG placeholder images.</Text>
+                <Text
+                  css={{
+                    borderColor: `#333333`,
+                    borderWidth: 1,
+                    borderStyle: `dashed`,
+                    borderRadius: 8,
+                    mt: `$10`,
+                    mx: `$6`,
+                  }}
+                >
+                  <pre>{`<img src="${getAppUrl(`/svg`)}" />`}</pre>
+                </Text>
                 <Grid.Container gap={2} css={{ mt: `$4` }}>
                   <Grid xs={12}>
                     <Button
