@@ -15,9 +15,9 @@ import { Icon } from '@iconify/react';
 import { loader } from '@/util/loader';
 import KofiButton from 'kofi-button';
 
-import { customAlphabet } from 'nanoid';
 import getAppUrl from '@/util/getAppUrl';
 import { LOC_URL, REPO_URL } from '@/util/constants';
+import { customId } from '@/util/customId';
 
 const getRandomInt = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -30,40 +30,47 @@ const KofiButtonContainer = styled(`div`, {
   alignItems: `center`,
 } as any);
 
-const customId = customAlphabet(`1234567890abcdef`, 4);
-
 export const getStaticProps = async () => {
   return {
     revalidate: 60,
     props: {
-      luminosity: `random`,
-      id: customId(),
-      seed: customId(),
-      count: 4,
-      size: 40,
-      borderWidth: 2,
-      dimension: 20,
-      borderColor: `#ffffff`,
+      options: {
+        luminosity: `random`,
+        id: customId(),
+        key: customId(),
+        seed: customId(),
+        count: 4,
+        size: 40,
+        borderWidth: 2,
+        dimension: 20,
+        borderColor: `#ffffff`,
+      },
     },
   };
 };
 
 const Index = (props: any) => {
-  const [luminosity, setLuminosity] = React.useState<any>([props.luminosity]);
-  const [id, setId] = React.useState<string>(props.id);
-  const [seed, setSeed] = React.useState<string>(props.seed);
-  const [count, setCount] = React.useState<number>(props.count);
-  const [size, setSize] = React.useState<number>(props.size);
+  const [luminosity, setLuminosity] = React.useState<any>([
+    props.options.luminosity,
+  ]);
+  const [id, setId] = React.useState<string>(props.options.id);
+  const [seed, setSeed] = React.useState<string>(props.options.seed);
+  const [count, setCount] = React.useState<number>(props.options.count);
+  const [size, setSize] = React.useState<number>(props.options.size);
   const [borderWidth, setBorderWidth] = React.useState<number>(
-    props.borderWidth,
+    props.options.borderWidth,
   );
-  const [dimension, setDimension] = React.useState<number>(props.dimension);
+  const [dimension, setDimension] = React.useState<number>(
+    props.options.dimension,
+  );
   const [borderColor, setBorderColor] = React.useState<string>(
-    props.borderColor,
+    props.options.borderColor,
   );
   const [hue, setHue] = React.useState<string>();
+  const [key, setKey] = React.useState<string>(props.options.key);
 
   const options = {
+    key,
     id,
     seed,
     luminosity,
@@ -76,11 +83,16 @@ const Index = (props: any) => {
   };
 
   const handleRandomize = () => {
+    setKey(customId());
     setId(customId());
     setSeed(customId());
     setCount(getRandomInt(2, 10));
     setDimension(20);
     setLuminosity([`random`]);
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(getAppUrl(`/svg?key=${key}`));
   };
 
   const url = loader(options)();
@@ -145,16 +157,14 @@ const Index = (props: any) => {
                       }}
                       bordered
                       contentRightStyling={false}
-                      value={getAppUrl(url, true, false)}
+                      value={getAppUrl(`/svg?key=${key}`, true, false)}
                       contentRight={
                         <Tooltip content="Copy URL" rounded color="primary">
                           <Button
                             auto
                             light
                             css={{ padding: 8, marginRight: 8 }}
-                            onClick={() => {
-                              navigator.clipboard.writeText(getAppUrl(url));
-                            }}
+                            onClick={handleCopy}
                           >
                             <Icon
                               style={{ fontSize: 18 }}

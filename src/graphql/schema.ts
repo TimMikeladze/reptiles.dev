@@ -89,6 +89,11 @@ export default gql`
     id: ID
 
     """
+    A short id used to identify the cached svg. If the svg does not exist in the cache, it will be generated and cached with this key.
+    """
+    key: ID
+
+    """
     A predetermined type of pattern will be generated. Defaults to "simple"
     """
     type: Type

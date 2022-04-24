@@ -1,8 +1,8 @@
-import { createSVGWindow } from 'svgdom';
-import { Container, registerWindow, SVG } from '@svgdotjs/svg.js';
+import { Container } from '@svgdotjs/svg.js';
 import randomColor from 'randomcolor';
 import objectHash from 'object-hash';
 import { simple } from '../generators/simple';
+import { customId } from '@/util/customId';
 
 export interface GenerateTilesOptions {
   id?: string;
@@ -48,6 +48,8 @@ export interface GenerateTilesOptions {
   t?: 'simple';
   colors?: string;
   cs?: string;
+  key?: string;
+  k?: string;
 }
 
 export interface AllOptions
@@ -64,6 +66,8 @@ export interface AllOptions
     | 'alpha'
     | 'bw'
     | 'bc'
+    | 'key'
+    | 'id'
   > {
   colors?: string[] | undefined;
 }
@@ -73,6 +77,7 @@ export const getRandomElement = (array: any[]) => {
 };
 
 export const cache = new Map<string, string>();
+export const shortCache = new Map<string, string>();
 
 export const toDataUrl = (svg: string): string => {
   const encoded = encodeURIComponent(svg)
@@ -112,8 +117,8 @@ export const generateTiles = (
   const alpha = options.alpha || options.a;
   const bw = options.borderWidth || options.bw || 2;
   const bc = options.borderColor || options.bc || `#000`;
-
-  const id = options.id ? options.id : null;
+  const key = options.key || options.k;
+  const id = options.id ? options.id : customId();
 
   const allOptions: Partial<AllOptions> = {
     width,
@@ -127,15 +132,18 @@ export const generateTiles = (
     alpha,
     bw,
     bc,
+    id,
   };
 
-  if (id) {
-    const hash = objectHash(allOptions);
+  if (key) {
+    const hash = shortCache.get(key);
 
-    const data = cache.get(hash);
+    if (hash) {
+      const data = cache.get(hash);
 
-    if (data) {
-      return [data, null];
+      if (data) {
+        return [data, null];
+      }
     }
   }
 
@@ -153,9 +161,10 @@ export const generateTiles = (
       }),
   });
 
-  if (id) {
+  if (key) {
     delete allOptions.colors;
     const hash = objectHash(allOptions);
+    shortCache.set(key, hash);
     cache.set(hash, svg);
   }
 
