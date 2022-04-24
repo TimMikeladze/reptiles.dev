@@ -1,6 +1,6 @@
 # reptiles.dev
 
-Generate colorful and temporarily identifiable SVGs.
+Generate colorful and temporarily identifiable SVGs with unique urls.
 
 🦎
  [Website](https://reptiles.dev) · 🔗 [Quick Link](https://reptiles.dev/svg) · 🛝 [GraphQL Playground](https://reptiles.dev/graphql)
