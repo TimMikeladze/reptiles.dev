@@ -36,9 +36,9 @@ const Index = () => {
   const [seed, setSeed] = React.useState<string>(nanoid(5));
   const [count, setCount] = React.useState<number>(4);
   const [size, setSize] = React.useState<number>(40);
-  const [borderWidth, setBorderWidth] = React.useState<number>(4);
+  const [borderWidth, setBorderWidth] = React.useState<number>(2);
   const [dimension, setDimension] = React.useState<number>(20);
-  const [borderColor, setBorderColor] = React.useState<string>(`#d5d5d5`);
+  const [borderColor, setBorderColor] = React.useState<string>(`#ffffff`);
   const [hue, setHue] = React.useState<string>();
 
   const options = {
