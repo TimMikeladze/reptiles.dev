@@ -67,6 +67,7 @@ const Index = (props: any) => {
   );
   const [hue, setHue] = React.useState<string>();
   const [key, setKey] = React.useState<string>(props.options.key);
+  const [copied, setCopied] = React.useState<boolean>(false);
 
   const options = {
     key,
@@ -88,10 +89,14 @@ const Index = (props: any) => {
     setCount(getRandomInt(2, 10));
     setDimension(20);
     setLuminosity([`random`]);
+    setCopied(false);
   };
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(getAppUrl(`/${key}`));
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 5000);
   };
 
   useEffect(() => {
@@ -192,7 +197,11 @@ const Index = (props: any) => {
                       contentRightStyling={false}
                       value={`/${key}`}
                       contentRight={
-                        <Tooltip content="Copy URL" rounded color="primary">
+                        <Tooltip
+                          content={copied ? `Copied to clipboard.` : `Copy URL`}
+                          rounded
+                          color="primary"
+                        >
                           <Button
                             auto
                             light
