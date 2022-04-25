@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   Text,
@@ -18,6 +18,7 @@ import gtag from 'ga-gtag';
 import getAppUrl from '@/util/getAppUrl';
 import { LOC_URL, REPO_URL } from '@/util/constants';
 import { customId } from '@/util/customId';
+import { isFunction, isString } from 'lodash';
 
 const getRandomInt = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -50,48 +51,33 @@ export const getStaticProps = async () => {
 };
 
 const Index = (props: any) => {
-  const [luminosity, setLuminosity] = React.useState<any>([
-    props.options.luminosity,
-  ]);
-  const [id, setId] = React.useState<string>(props.options.id);
-  const [seed, setSeed] = React.useState<string>(props.options.seed);
-  const [count, setCount] = React.useState<number>(props.options.count);
-  const [size, setSize] = React.useState<number>(props.options.size);
-  const [borderWidth, setBorderWidth] = React.useState<number>(
-    props.options.borderWidth,
-  );
-  const [dimension, setDimension] = React.useState<number>(
-    props.options.dimension,
-  );
-  const [borderColor, setBorderColor] = React.useState<string>(
-    props.options.borderColor,
-  );
-  const [hue, setHue] = React.useState<string>();
-  const [key, setKey] = React.useState<string>(props.options.key);
   const [copied, setCopied] = React.useState<boolean>(false);
 
-  const options = {
-    key,
-    id,
-    seed,
-    luminosity,
-    hue,
-    dimension,
-    count,
-    size,
-    borderWidth: borderWidth,
-    borderColor: borderColor,
+  const [options, setOptions] = useState({
+    luminosity: [`random`],
+    ...props.options,
+  });
+
+  const handleChangeOptions = (name: string, value: any) => {
+    setOptions({
+      ...options,
+      key: customId(),
+      [name]: value,
+    });
   };
 
   const handleRandomize = () => {
     gtag(`event`, `randomized`);
 
-    setKey(customId());
-    setId(customId());
-    setSeed(customId());
-    setCount(getRandomInt(2, 10));
-    setDimension(20);
-    setLuminosity([`random`]);
+    setOptions({
+      ...options,
+      id: customId(),
+      key: customId(),
+      seed: customId(),
+      count: getRandomInt(2, 10),
+      dimension: 20,
+    });
+
     setCopied(false);
   };
 
@@ -103,23 +89,8 @@ const Index = (props: any) => {
       setCopied(false);
     }, 5000);
 
-    navigator.clipboard.writeText(getAppUrl(`/${key}`));
+    navigator.clipboard.writeText(getAppUrl(`/${options.key}`));
   };
-
-  useEffect(() => {
-    setKey(customId());
-  }, [
-    luminosity,
-    id,
-    seed,
-    luminosity,
-    hue,
-    dimension,
-    count,
-    size,
-    borderWidth,
-    borderColor,
-  ]);
 
   return (
     <>
@@ -186,7 +157,7 @@ const Index = (props: any) => {
                   {`<img src="${getAppUrl(`/svg/?size=20&hue=green`)}" />`}
                   <br />
                   <br />
-                  {`<img src="${getAppUrl(`/${key}`)}" />`}
+                  {`<img src="${getAppUrl(`/${options.key}`)}" />`}
                 </Text>
                 <Grid.Container gap={2} css={{ mt: `$4` }}>
                   <Grid xs={12}>
@@ -208,7 +179,7 @@ const Index = (props: any) => {
                       }}
                       labelLeft={`reptiles.dev`}
                       contentRightStyling={false}
-                      value={`/${key}`}
+                      value={`/${options.key}`}
                       contentRight={
                         <Tooltip
                           content={copied ? `Copied to clipboard.` : `Copy URL`}
@@ -262,11 +233,18 @@ const Index = (props: any) => {
                       size="xs"
                       label="Luminosity"
                       color="secondary"
-                      defaultValue={[`none`]}
-                      value={luminosity}
-                      onChange={(x) =>
-                        setLuminosity([x.length ? x.pop() : [`random`]])
-                      }
+                      value={options.luminosity || []}
+                      onChange={(x) => {
+                        if (isString(x)) {
+                          handleChangeOptions(`luminosity`, [
+                            x.replace(`random`, ``),
+                          ]);
+                        } else if (x && x.length && isFunction(x.pop)) {
+                          handleChangeOptions(`luminosity`, [x.pop()]);
+                        } else {
+                          handleChangeOptions(`luminosity`, [`random`]);
+                        }
+                      }}
                     >
                       <Checkbox value="random">Random</Checkbox>
                       <Checkbox value="light">Light</Checkbox>
@@ -280,8 +258,10 @@ const Index = (props: any) => {
                       min={1}
                       labelLeft="Color count"
                       type="number"
-                      value={count}
-                      onChange={(e: any) => setCount(e.target.value)}
+                      value={options.count}
+                      onChange={(e: any) =>
+                        handleChangeOptions(`count`, e.target.value)
+                      }
                       placeholder="4"
                     />
                   </Grid>
@@ -290,8 +270,10 @@ const Index = (props: any) => {
                       fullWidth
                       min={1}
                       labelLeft="ID"
-                      value={id}
-                      onChange={(e: any) => setId(e.target.value)}
+                      value={options.id}
+                      onChange={(e: any) =>
+                        handleChangeOptions(`id`, e.target.value)
+                      }
                       placeholder={`xxxxxx`}
                     />
                   </Grid>
@@ -301,8 +283,10 @@ const Index = (props: any) => {
                       fullWidth
                       min={1}
                       labelLeft="Color seed"
-                      value={seed}
-                      onChange={(e: any) => setSeed(e.target.value)}
+                      value={options.seed}
+                      onChange={(e: any) =>
+                        handleChangeOptions(`seed`, e.target.value)
+                      }
                       placeholder={`xxxxxx`}
                     />
                   </Grid>
@@ -310,8 +294,10 @@ const Index = (props: any) => {
                     <Input
                       fullWidth
                       labelLeft="Hue"
-                      value={hue}
-                      onChange={(e: any) => setHue(e.target.value)}
+                      value={options.hue}
+                      onChange={(e: any) =>
+                        handleChangeOptions(`hue`, e.target.value)
+                      }
                       placeholder="#ffffff"
                     />
                   </Grid>
@@ -321,8 +307,10 @@ const Index = (props: any) => {
                       min={1}
                       labelLeft="Dimension"
                       type="number"
-                      value={dimension}
-                      onChange={(e: any) => setDimension(e.target.value)}
+                      value={options.dimension}
+                      onChange={(e: any) =>
+                        handleChangeOptions(`dimension`, e.target.value)
+                      }
                       placeholder="20"
                     />
                   </Grid>
@@ -332,8 +320,10 @@ const Index = (props: any) => {
                       min={1}
                       labelLeft="Size"
                       type="number"
-                      value={size}
-                      onChange={(e: any) => setSize(e.target.value)}
+                      value={options.size}
+                      onChange={(e: any) =>
+                        handleChangeOptions(`size`, e.target.value)
+                      }
                       placeholder="40"
                     />
                   </Grid>
@@ -343,8 +333,10 @@ const Index = (props: any) => {
                       min={1}
                       labelLeft="Border width"
                       type="number"
-                      value={borderWidth}
-                      onChange={(e: any) => setBorderWidth(e.target.value)}
+                      value={options.borderWidth}
+                      onChange={(e: any) =>
+                        handleChangeOptions(`borderWidth`, e.target.value)
+                      }
                       placeholder="2"
                     />
                   </Grid>
@@ -353,8 +345,10 @@ const Index = (props: any) => {
                       fullWidth
                       min={1}
                       labelLeft="Border color"
-                      value={borderColor}
-                      onChange={(e: any) => setBorderColor(e.target.value)}
+                      value={options.borderColor}
+                      onChange={(e: any) =>
+                        handleChangeOptions(`borderColor`, e.target.value)
+                      }
                       placeholder="#fffff"
                     />
                   </Grid>
