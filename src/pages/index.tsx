@@ -16,7 +16,14 @@ import KofiButton from 'kofi-button';
 import gtag from 'ga-gtag';
 
 import getAppUrl from '@/util/getAppUrl';
-import { LOC_URL, REPO_URL } from '@/util/constants';
+import {
+  LOC_URL,
+  MAX_BORDER_WIDTH,
+  MAX_COLORS,
+  MAX_DIMENSION,
+  MAX_SIZE,
+  REPO_URL,
+} from '@/util/constants';
 import { customId } from '@/util/customId';
 import { isFunction, isString } from 'lodash';
 
@@ -256,6 +263,7 @@ const Index = (props: any) => {
                     <Input
                       fullWidth
                       min={1}
+                      max={MAX_COLORS}
                       labelLeft="Color count"
                       type="number"
                       value={options.count}
@@ -268,7 +276,6 @@ const Index = (props: any) => {
                   <Grid xs={12}>
                     <Input
                       fullWidth
-                      min={1}
                       labelLeft="ID"
                       value={options.id}
                       onChange={(e: any) =>
@@ -281,7 +288,6 @@ const Index = (props: any) => {
                   <Grid xs={12}>
                     <Input
                       fullWidth
-                      min={1}
                       labelLeft="Color seed"
                       value={options.seed}
                       onChange={(e: any) =>
@@ -305,6 +311,7 @@ const Index = (props: any) => {
                     <Input
                       fullWidth
                       min={1}
+                      max={MAX_DIMENSION}
                       labelLeft="Dimension"
                       type="number"
                       value={options.dimension}
@@ -318,6 +325,7 @@ const Index = (props: any) => {
                     <Input
                       fullWidth
                       min={1}
+                      max={MAX_SIZE}
                       labelLeft="Size"
                       type="number"
                       value={options.size}
@@ -331,6 +339,7 @@ const Index = (props: any) => {
                     <Input
                       fullWidth
                       min={1}
+                      max={MAX_BORDER_WIDTH}
                       labelLeft="Border width"
                       type="number"
                       value={options.borderWidth}

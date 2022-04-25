@@ -4,7 +4,13 @@ import objectHash from 'object-hash';
 import { simple } from '@/generators/simple';
 import { customId } from '@/util/customId';
 import Redis from 'ioredis';
-import { TTL } from '@/util/constants';
+import {
+  MAX_BORDER_WIDTH,
+  MAX_COLORS,
+  MAX_DIMENSION,
+  MAX_SIZE,
+  TTL,
+} from '@/util/constants';
 
 export interface GenerateTilesOptions {
   id?: string;
@@ -116,6 +122,22 @@ export const generator = async (
   const bc = options.borderColor || options.bc || `#000`;
   const key = options.key || options.k;
   const id = options.id ? options.id : customId();
+
+  if (width > MAX_DIMENSION || height > MAX_DIMENSION) {
+    throw new Error(`Dimensions must be no greater than ${MAX_DIMENSION}`);
+  }
+
+  if (size > MAX_SIZE) {
+    throw new Error(`Size must be no greater than ${MAX_SIZE}`);
+  }
+
+  if (bw > MAX_SIZE) {
+    throw new Error(`Border width must be no greater than ${MAX_BORDER_WIDTH}`);
+  }
+
+  if (count > MAX_COLORS) {
+    throw new Error(`Color count must be no greater than ${MAX_COLORS}`);
+  }
 
   const allOptions: Partial<AllOptions> = {
     width,

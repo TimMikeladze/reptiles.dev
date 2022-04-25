@@ -18,6 +18,14 @@ export const RATE_LIMIT_MAX = 10;
 
 export const TTL = 60 * 60; // 1 hour
 
+export const MAX_DIMENSION = 250;
+
+export const MAX_COLORS = 100;
+
+export const MAX_SIZE = 250;
+
+export const MAX_BORDER_WIDTH = 250;
+
 export const DEFAULT_QUERY = `{
   svg(options: {
     hue: "green"
