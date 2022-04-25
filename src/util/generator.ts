@@ -4,6 +4,7 @@ import objectHash from 'object-hash';
 import { simple } from '@/generators/simple';
 import { customId } from '@/util/customId';
 import Redis from 'ioredis';
+import { TTL } from '@/util/constants';
 
 export interface GenerateTilesOptions {
   id?: string;
@@ -73,8 +74,6 @@ export interface AllOptions
   colors?: string[] | undefined;
 }
 
-const cache = new Map<string, string>();
-const shortCache = new Map<string, string>();
 const redis = new Redis(process.env.REDIS_URL as string);
 
 export const toDataUrl = (svg: string): string => {
@@ -134,15 +133,13 @@ export const generator = async (
   };
 
   if (key) {
-    const hash = shortCache.get(key);
+    const hash = await redis.get(key);
 
     if (hash) {
-      const data = cache.get(hash);
+      const data = await redis.get(hash);
 
       if (data) {
-        if (redis) {
-          await redis.incr(`numberOfImagesReturnedFromCache`);
-        }
+        await redis.incr(`numberOfImagesReturnedFromCache`);
         return [data, null];
       }
     }
@@ -162,18 +159,14 @@ export const generator = async (
       }),
   });
 
-  if (redis) {
-    await redis.incr(`numberOfImagesCreated`);
-  }
+  await redis.incr(`numberOfImagesCreated`);
 
   if (key) {
-    if (redis) {
-      await redis.incr(`numberOfImagesCached`);
-    }
+    await redis.incr(`numberOfImagesCached`);
     delete allOptions.colors;
     const hash = objectHash(allOptions);
-    shortCache.set(key, hash);
-    cache.set(hash, svg);
+    await redis.set(key, hash, `EX`, TTL);
+    await redis.set(hash, svg, `EX`, TTL);
   }
 
   return [svg, canvas];

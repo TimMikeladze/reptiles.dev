@@ -25,7 +25,9 @@ Alternatively use the [GraphQL playground](https://reptiles.dev/api/graphql) and
 
 ## How it works
 
-Every image is given a key and cached for a short while. Including the key of the image in a link will return the cached image. If no image is cached than one will be generated cached with the given key.
+Generated SVGs are cached for up to one hour
+before they are purged. After that point, a new image will be
+generated when the url is visited.
 
 This method of generating random yet temporarily identifiable image is great to use when mocking & developing front-ends, mapping some fake ids to images, or as placeholder images inside a
 Storybook.

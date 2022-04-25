@@ -16,6 +16,8 @@ export const RATE_LIMIT_WINDOW = `1m`;
 
 export const RATE_LIMIT_MAX = 10;
 
+export const TTL = 60 * 60; // 1 hour
+
 export const DEFAULT_QUERY = `{
   svg(options: {
     hue: "green"

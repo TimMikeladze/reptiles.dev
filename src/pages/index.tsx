@@ -139,10 +139,10 @@ const Index = (props: any) => {
                 </Text>
                 <br />
                 <Text h6 css={{ mx: `$6` }}>
-                  Every image is given a key and cached for a short while.
-                  Including the key of the image in a link will return the
-                  cached image. If no image is cached than one will be generated
-                  cached with the given key.
+                  Including the identifier of the image in a link will return
+                  the cached image. The generated SVGs are cached for up to one
+                  hour before they are removed from the cache. After that point,
+                  a new image will be generated when the url is visited.
                   <br />
                   <br />
                   This method of generating random yet temporarily identifiable
