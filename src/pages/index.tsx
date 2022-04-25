@@ -97,6 +97,8 @@ const Index = (props: any) => {
     setTimeout(() => {
       setCopied(false);
     }, 5000);
+
+    navigator.clipboard.writeText(getAppUrl(`/${key}`));
   };
 
   useEffect(() => {
