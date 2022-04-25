@@ -137,8 +137,8 @@ const Index = (props: any) => {
                 <br />
                 <Text h6 css={{ mx: `$6` }}>
                   Including the identifier of the image in a link will return
-                  the cached image. The generated SVGs are cached for up to one
-                  hour before they are removed. After that point a new image
+                  the cached image. The generated SVGs are cached for up to 15
+                  minutes before they are removed. After that point a new image
                   will be generated when the url is visited.
                   <br />
                   <br />
