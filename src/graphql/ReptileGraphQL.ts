@@ -3,7 +3,7 @@ import { createModule } from 'graphql-modules';
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import { loader } from '@/util/loader';
+import { createImageUrl } from '@/util/createImageUrl';
 import getAppUrl from '@/util/getAppUrl';
 import { generator, toDataUrl } from '@/util/generator';
 
@@ -29,7 +29,7 @@ const ReptileGraphQL = createModule({
         const [svg] = await generator(options);
 
         return {
-          url: getAppUrl(loader(options)()),
+          url: getAppUrl(createImageUrl(options)),
           data: toDataUrl(svg),
         };
       },
