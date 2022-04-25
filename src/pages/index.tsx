@@ -190,7 +190,7 @@ const Index = (props: any) => {
                       value={`/${options.key}`}
                       contentRight={
                         <Tooltip
-                          content={copied ? `Copied to clipboard.` : `Copy URL`}
+                          content={copied ? `Copied to clipboard` : `Copy URL`}
                           rounded
                           color="primary"
                         >
