@@ -23,6 +23,7 @@ import {
   MAX_DIMENSION,
   MAX_SIZE,
   REPO_URL,
+  REVALIDATE,
 } from '@/util/constants';
 import { customId } from '@/util/customId';
 import { isFunction, isString } from 'lodash';
@@ -40,7 +41,7 @@ const KofiButtonContainer = styled(`div`, {
 
 export const getStaticProps = async () => {
   return {
-    revalidate: 60,
+    revalidate: REVALIDATE,
     props: {
       options: {
         luminosity: `random`,

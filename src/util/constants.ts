@@ -26,6 +26,8 @@ export const MAX_SIZE = 250;
 
 export const MAX_BORDER_WIDTH = 250;
 
+export const REVALIDATE = 60 * 5; // 5 minutes
+
 export const DEFAULT_QUERY = `{
   svg(options: {
     hue: "green"
