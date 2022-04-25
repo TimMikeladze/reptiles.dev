@@ -23,6 +23,7 @@ function MyApp({ Component, pageProps }: any) {
     <>
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <NextSeo
         title={SITE_TITLE}
