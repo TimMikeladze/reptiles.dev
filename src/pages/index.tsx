@@ -217,6 +217,18 @@ const Index = (props: any) => {
                       }
                     />
                   </Grid>
+                  <Grid xs={12}>
+                    <KofiButtonContainer>
+                      <KofiButton
+                        color="#0070F3"
+                        title="Buy Me a Coffee"
+                        kofiID="linesofcodedev"
+                      />
+                      <Button light href={LOC_URL} as="a">
+                        <Text h4>@linesofcodedev</Text>
+                      </Button>
+                    </KofiButtonContainer>
+                  </Grid>
 
                   <Grid xs={12}>
                     <Checkbox.Group
@@ -323,16 +335,6 @@ const Index = (props: any) => {
                 </Grid.Container>
               </Card.Body>
             </Card>
-            <KofiButtonContainer>
-              <KofiButton
-                color="#0070F3"
-                title="Buy Me a Coffee"
-                kofiID="linesofcodedev"
-              />
-              <Button light href={LOC_URL} as="a">
-                <Text h4>@linesofcodedev</Text>
-              </Button>
-            </KofiButtonContainer>
           </div>
         </Grid>
         <Grid
