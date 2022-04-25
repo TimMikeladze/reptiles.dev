@@ -11,6 +11,7 @@ import {
   MAX_SIZE,
   TTL,
 } from '@/util/constants';
+import { optimize } from 'svgo';
 
 export interface GenerateTilesOptions {
   id?: string;
@@ -183,13 +184,18 @@ export const generator = async (
 
   await redis.incr(`numberOfImagesCreated`);
 
+  const { data } = optimize(svg, {
+    multipass: true,
+  }) as any;
+
   if (key) {
     await redis.incr(`numberOfImagesCached`);
     delete allOptions.colors;
     const hash = objectHash(allOptions);
+
     await redis.set(key, hash, `EX`, TTL);
-    await redis.set(hash, svg, `EX`, TTL);
+    await redis.set(hash, data, `EX`, TTL);
   }
 
-  return [svg, canvas];
+  return [data, canvas];
 };
