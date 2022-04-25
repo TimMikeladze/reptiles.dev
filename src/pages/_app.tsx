@@ -5,8 +5,6 @@ import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
 import { NextUIProvider } from '@nextui-org/react';
 import { darkTheme, lightTheme } from '@/themes';
-import Script from 'next/script';
-import isBrowser from '@/util/isBrowser';
 import Head from 'next/head';
 import getAppUrl from '@/util/getAppUrl';
 import { NextSeo } from 'next-seo';
