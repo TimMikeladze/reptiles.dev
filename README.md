@@ -29,7 +29,7 @@ Alternatively use the [GraphQL playground](https://reptiles.dev/api/graphql) and
 
 ## How it works
 
-Generated SVGs are cached for up to 15 minutes before they are removed. After that point a new image will be generated when the url is visited.
+Generated SVGs are cached for up to 30 minutes before they are removed. After that point a new image will be generated when the url is visited.
 
 This method of generating random yet temporarily identifiable image is great to use when mocking & developing front-ends, mapping some fake ids to images, or as placeholder images inside a
 Storybook.
