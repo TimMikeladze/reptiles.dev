@@ -37,6 +37,7 @@
     "@types/randomcolor": "0.5.6",
     "apollo-server-micro": "3.6.7",
     "entropy-string": "4.2.0",
+    "ga-gtag": "1.1.1",
     "graphql": "16.3.0",
     "graphql-middleware": "6.0.9",
     "graphql-modules": "2.0.0",

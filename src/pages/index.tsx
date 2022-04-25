@@ -13,6 +13,7 @@ import {
 import Reptiles from '@/components/Reptiles';
 import { Icon } from '@iconify/react';
 import KofiButton from 'kofi-button';
+import gtag from 'ga-gtag';
 
 import getAppUrl from '@/util/getAppUrl';
 import { LOC_URL, REPO_URL } from '@/util/constants';
@@ -83,6 +84,8 @@ const Index = (props: any) => {
   };
 
   const handleRandomize = () => {
+    gtag(`event`, `randomized`);
+
     setKey(customId());
     setId(customId());
     setSeed(customId());
@@ -93,6 +96,8 @@ const Index = (props: any) => {
   };
 
   const handleCopy = () => {
+    gtag(`event`, `copied`);
+
     setCopied(true);
     setTimeout(() => {
       setCopied(false);
@@ -131,7 +136,13 @@ const Index = (props: any) => {
                 <Text h4 css={{ pl: `$8` }}>
                   reptiles.dev
                 </Text>
-                <Button auto light as="a" href={REPO_URL}>
+                <Button
+                  auto
+                  light
+                  as="a"
+                  href={REPO_URL}
+                  onClick={() => gtag(`event`, `github`)}
+                >
                   <Icon
                     icon="ci:github"
                     style={{ color: `white`, fontSize: 22 }}
@@ -148,8 +159,8 @@ const Index = (props: any) => {
                 <Text h6 css={{ mx: `$6` }}>
                   Including the identifier of the image in a link will return
                   the cached image. The generated SVGs are cached for up to one
-                  hour before they are removed from the cache. After that point,
-                  a new image will be generated when the url is visited.
+                  hour before they are removed. After that point a new image
+                  will be generated when the url is visited.
                   <br />
                   <br />
                   This method of generating random yet temporarily identifiable
@@ -221,12 +232,25 @@ const Index = (props: any) => {
                   </Grid>
                   <Grid xs={12}>
                     <KofiButtonContainer>
-                      <KofiButton
-                        color="#0070F3"
-                        title="Buy Me a Coffee"
-                        kofiID="linesofcodedev"
-                      />
-                      <Button light href={LOC_URL} as="a">
+                      <div
+                        onClick={() => {
+                          gtag(`event`, `kofi`);
+                        }}
+                      >
+                        <KofiButton
+                          color="#0070F3"
+                          title="Buy Me a Coffee"
+                          kofiID="linesofcodedev"
+                        />
+                      </div>
+                      <Button
+                        light
+                        href={LOC_URL}
+                        as="a"
+                        onClick={() => {
+                          gtag(`event`, `footer`);
+                        }}
+                      >
                         <Text h4>@linesofcodedev</Text>
                       </Button>
                     </KofiButtonContainer>
