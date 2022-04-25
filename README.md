@@ -44,6 +44,9 @@ Storybook.
 <img src="https://reptiles.dev/some-identifier" />
 
 <img src="https://reptiles.dev/svg?width=10&luminosity=light&hue=147A34" />
+
+<!-- /random is alias of /svg -->
+<img src="https://reptiles.dev/random" />
 ```
 
 <img src="https://reptiles.dev/svg" />
@@ -51,4 +54,5 @@ Storybook.
 <img src="https://reptiles.dev/some-identifier" />
 <br />
 <img src="https://reptiles.dev/svg?width=10&luminosity=dark&hue=147A34" />
-
+<br />
+<img src="https://reptiles.dev/random" />

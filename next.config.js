@@ -2,6 +2,10 @@ module.exports = {
   async rewrites() {
     return [
       {
+        source: '/random',
+        destination: '/api/svg',
+      },
+      {
         source: '/svg',
         destination: '/api/svg',
       },
