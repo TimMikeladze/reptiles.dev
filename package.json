@@ -78,6 +78,7 @@
     "@typescript-eslint/eslint-plugin": "5.20.0",
     "@typescript-eslint/parser": "5.20.0",
     "commitizen": "4.2.4",
+    "concurrently": "7.1.0",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "8.13.0",
     "eslint-config-next": "12.1.5",
