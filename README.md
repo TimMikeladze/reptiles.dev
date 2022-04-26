@@ -10,7 +10,7 @@ Generate colorful and temporarily identifiable SVGs with unique urls.
 <img src="https://reptiles.dev/123" />
 ```
 
-💻 
+💻
  [Website](https://reptiles.dev) · 🔗 [Random SVG](https://reptiles.dev/svg) · 🛝 [GraphQL Playground](https://reptiles.dev/api/graphql)
 
 <img width="500px" src="docs/example.png" />
@@ -31,8 +31,10 @@ Alternatively use the [GraphQL playground](https://reptiles.dev/api/graphql) and
 
 Generated SVGs are cached for up to 30 minutes before they are removed. After that point a new image will be generated when the url is visited.
 
-This method of generating random yet temporarily identifiable image is great to use when mocking & developing front-ends, mapping some fake ids to images, or as placeholder images inside a
-Storybook.
+This method of generating random yet temporarily identifiable
+images is great to use when mocking & developing front-ends,
+mapping some fake ids to images, or as placeholder images
+inside a Storybook.
 
 ## Examples
 
