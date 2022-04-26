@@ -34,6 +34,12 @@ export default gql`
     simple
   }
 
+  enum Luminosity {
+    bright
+    light
+    dark
+  }
+
   input Options {
     """
     The dimensions of the svg. Defaults to 20.
@@ -62,7 +68,7 @@ export default gql`
     """
     Controls the luminosity of the generated color. You can specify a string containing bright, light or dark.
     """
-    luminosity: String
+    luminosity: Luminosity
     """
     An integer or string which when passed will cause randomColor to return the same color each time.
     """
