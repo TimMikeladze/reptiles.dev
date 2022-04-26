@@ -10,7 +10,7 @@ Generate colorful and temporarily identifiable SVGs with unique urls.
 <img src="https://reptiles.dev/123" />
 ```
 
-🦎
+💻 
  [Website](https://reptiles.dev) · 🔗 [Random SVG](https://reptiles.dev/svg) · 🛝 [GraphQL Playground](https://reptiles.dev/api/graphql)
 
 <img width="500px" src="docs/example.png" />
