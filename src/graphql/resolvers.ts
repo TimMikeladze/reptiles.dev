@@ -16,7 +16,7 @@ const Query: QueryResolvers = {
         }
       : {};
 
-    const [svg] = await generator(options);
+    const { svg } = await generator(options);
 
     return {
       url: getAppUrl(createImageUrl(options)),

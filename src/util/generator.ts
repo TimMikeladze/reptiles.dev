@@ -103,9 +103,15 @@ export const patterns: {
   [`simple`]: simple,
 };
 
+export interface GeneratorReturn {
+  svg: string;
+  canvas: Container | null;
+  options: AllOptions;
+}
+
 export const generator = async (
   options: GenerateTilesOptions = {},
-): Promise<[string, Container | null]> => {
+): Promise<GeneratorReturn> => {
   const width =
     options.width || options.w || options.dimension || options.d || 20;
   const height =
@@ -124,7 +130,7 @@ export const generator = async (
   const alpha = options.alpha || options.a;
   const bw = options.borderWidth || options.bw || 2;
   const bc = options.borderColor || options.bc || `#000`;
-  const key = options.key || options.k;
+  let key = options.key || options.k;
   const id = options.id ? options.id : customId();
 
   const customCount = options.count || options.c;
@@ -168,11 +174,18 @@ export const generator = async (
       const data = await redis.get(hash);
 
       if (data) {
+        allOptions.key = key;
         await redis.incr(`numberOfImagesReturnedFromCache`);
-        return [data, null];
+        return { svg: data, canvas: null, options: allOptions };
       }
     }
   }
+
+  if (!key) {
+    key = customId();
+  }
+
+  allOptions.key = key;
 
   let colors: string[] =
     (options.colors || options.cs)?.split(`-`)?.map(fixHexColorString) ||
@@ -207,18 +220,16 @@ export const generator = async (
 
   await redis.incr(`numberOfImagesCreated`);
 
-  const { data } = optimize(svg, {
+  const optimized: any = optimize(svg, {
     multipass: true,
-  }) as any;
+  });
 
-  if (key) {
-    await redis.incr(`numberOfImagesCached`);
-    delete allOptions.colors;
-    const hash = objectHash(allOptions);
+  await redis.incr(`numberOfImagesCached`);
+  delete allOptions.colors;
+  const hash = objectHash(allOptions);
 
-    await redis.set(key, hash, `EX`, TTL);
-    await redis.set(hash, data, `EX`, TTL);
-  }
+  await redis.set(key, hash, `EX`, TTL);
+  await redis.set(hash, optimized.data, `EX`, TTL);
 
-  return [data, canvas];
+  return { svg: optimized.data, canvas, options: allOptions };
 };

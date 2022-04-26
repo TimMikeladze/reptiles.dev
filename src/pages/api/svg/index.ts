@@ -16,9 +16,13 @@ export default async function handler(
     options.key = options.key[0];
   }
 
-  const data = await generator(options);
+  const { svg, options: allOptions } = await generator(options);
 
   res.setHeader(`Content-Type`, `image/svg+xml`);
+  res.setHeader(
+    `Content-Disposition`,
+    `inline; filename=${allOptions.key}.svg`,
+  );
 
-  res.send(data[0]);
+  res.send(svg);
 }
