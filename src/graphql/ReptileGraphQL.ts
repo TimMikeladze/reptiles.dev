@@ -1,6 +1,8 @@
 import schema from './schema';
 import { createModule } from 'graphql-modules';
 
+import { HexColorCodeResolver } from 'graphql-scalars';
+
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { createImageUrl } from '@/util/createImageUrl';
@@ -34,6 +36,7 @@ const ReptileGraphQL = createModule({
         };
       },
     },
+    HexColorCode: HexColorCodeResolver,
   },
 });
 

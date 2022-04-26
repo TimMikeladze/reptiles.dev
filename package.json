@@ -42,6 +42,7 @@
     "graphql-middleware": "6.0.9",
     "graphql-modules": "2.0.0",
     "graphql-rate-limit": "3.3.0",
+    "graphql-scalars": "1.17.0",
     "graphql-shield": "7.5.0",
     "ioredis": "5.0.4",
     "kofi-button": "1.1.1",

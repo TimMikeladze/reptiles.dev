@@ -83,6 +83,9 @@ export interface AllOptions
 
 const redis = new Redis(process.env.REDIS_URL as string);
 
+const fixHexColorString = (color: string): string =>
+  !color.startsWith(`#`) ? `#${color}` : color;
+
 export const toDataUrl = (svg: string): string => {
   const encoded = encodeURIComponent(svg)
     .replace(/'/g, `%27`)
@@ -171,7 +174,7 @@ export const generator = async (
   const [svg, canvas] = patterns[options.type || options.t || `simple`]({
     ...allOptions,
     colors:
-      (options.colors || options.cs)?.split(`-`)?.map((x) => `#${x}`) ||
+      (options.colors || options.cs)?.split(`-`)?.map(fixHexColorString) ||
       randomColor({
         count,
         hue,
