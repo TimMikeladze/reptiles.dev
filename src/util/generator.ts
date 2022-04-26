@@ -127,6 +127,9 @@ export const generator = async (
   const key = options.key || options.k;
   const id = options.id ? options.id : customId();
 
+  const customCount = options.count || options.c;
+  const customColors = options.colors || options.cs;
+
   if (width > MAX_DIMENSION || height > MAX_DIMENSION) {
     throw new Error(`Dimensions must be no greater than ${MAX_DIMENSION}`);
   }
@@ -171,18 +174,35 @@ export const generator = async (
     }
   }
 
-  const [svg, canvas] = patterns[options.type || options.t || `simple`]({
-    ...allOptions,
-    colors:
-      (options.colors || options.cs)?.split(`-`)?.map(fixHexColorString) ||
-      randomColor({
-        count,
+  let colors: string[] =
+    (options.colors || options.cs)?.split(`-`)?.map(fixHexColorString) ||
+    randomColor({
+      count,
+      hue,
+      luminosity,
+      seed,
+      format,
+      alpha,
+    });
+
+  if (customColors && customCount && count > colors.length) {
+    const countDiff = count - colors.length;
+    colors = [
+      ...colors,
+      ...randomColor({
+        count: countDiff,
         hue,
         luminosity,
         seed,
         format,
         alpha,
       }),
+    ];
+  }
+
+  const [svg, canvas] = patterns[options.type || options.t || `simple`]({
+    ...allOptions,
+    colors,
   });
 
   await redis.incr(`numberOfImagesCreated`);
