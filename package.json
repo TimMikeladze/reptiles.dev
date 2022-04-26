@@ -16,7 +16,9 @@
     "tiled"
   ],
   "scripts": {
-    "dev": "next",
+    "dev": "concurrently \"next dev\" \"yarn codegen:watch\"",
+    "codegen": "graphql-codegen --config codegen.yaml && git add generated",
+    "codegen:watch": "yarn codegen && graphql-codegen --watch --config codegen.yaml",
     "build": "next build",
     "start": "next start",
     "type-check": "tsc",
@@ -62,6 +64,8 @@
   "devDependencies": {
     "@commitlint/cli": "16.2.3",
     "@commitlint/config-conventional": "16.2.1",
+    "@graphql-codegen/cli": "2.6.2",
+    "@graphql-codegen/typescript-resolvers": "2.6.1",
     "@iconify/react": "3.2.1",
     "@iconify/types": "1.1.0",
     "@types/graphql": "14.5.0",

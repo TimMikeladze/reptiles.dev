@@ -1,0 +1,13 @@
+overwrite: true
+
+generates:
+  generated/graphql.tsx:
+    schema: 'src/graphql/schema.ts'
+    config:
+      contextType: src/graphql/server#Context
+      addDocBlocks: true
+      optionalInfoArgument: true
+      useIndexSignature: true
+    plugins:
+      - 'typescript'
+      - 'typescript-resolvers'

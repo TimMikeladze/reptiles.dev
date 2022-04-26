@@ -14,6 +14,11 @@ import parseIp from '@/util/parseIp';
 import ReptileGraphQL from './ReptileGraphQL';
 import getAppUrl from '@/util/getAppUrl';
 
+export interface Context {
+  ip: string;
+  userAgent?: string;
+}
+
 const rateLimitUserAgentAndIp = createRateLimitRule({
   identifyContext: (context) => {
     return `${context.userAgent}-${context.ip}`;
