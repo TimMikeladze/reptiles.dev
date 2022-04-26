@@ -1,4 +1,4 @@
-# reptiles.dev
+# <img src="public/favicon-16x16.png" /> reptiles.dev
 
 Generate colorful and temporarily identifiable SVGs with unique urls.
 
