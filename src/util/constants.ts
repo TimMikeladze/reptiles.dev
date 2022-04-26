@@ -31,7 +31,7 @@ export const REVALIDATE = 60 * 5; // 5 minutes
 export const DEFAULT_QUERY = `{
   svg(options: {
     hue: "green"
-    luminosity: "dark"
+    luminosity: dark
   }){
     url
     data
