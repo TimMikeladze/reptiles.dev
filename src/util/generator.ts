@@ -218,13 +218,12 @@ export const generator = async (
     colors,
   });
 
-  await redis.incr(`numberOfImagesCreated`);
-
   const optimized: any = optimize(svg, {
     multipass: true,
   });
 
   await redis.incr(`numberOfImagesCached`);
+
   delete allOptions.colors;
   const hash = objectHash(allOptions);
 
