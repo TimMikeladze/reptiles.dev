@@ -237,7 +237,6 @@ const Index = (props: any) => {
 
                   <Grid xs={12}>
                     <Checkbox.Group
-                      row
                       size="xs"
                       label="Luminosity"
                       color="secondary"
